@@ -1,1 +1,2 @@
-# 1. Цели проекта.
+# **1. Цели проекта.**
+Цель проекта - создать игру, для развития/проверки навыков финансовой грамотности, основанная на книгах: [Богатый папа бедный папа](https://mybook.ru/author/robert-kijosaki/bogatyj-papa-bednyj-papa/read/), [Думай и богатей](https://mybook.ru/author/napoleon-hill/dumaj-i-bogatej-1/), [Самый богатый человек в Вавилоне](https://mybook.ru/author/dzhorzh-klejson/samyj-bogatyj-chelovek-v-vavilone/)
