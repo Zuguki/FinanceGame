@@ -435,3 +435,7 @@ $RECYCLE.BIN/
 ## Generated css + js
 **/wwwroot/css/themesof.net.bundle.css*
 **/wwwroot/js/themesof.net.bundle.js*
+
+
+# Obsidian
+*.obsidian
