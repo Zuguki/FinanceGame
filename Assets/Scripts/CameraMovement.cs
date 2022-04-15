@@ -10,24 +10,10 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField] private SpriteRenderer mapRenderer;
 
-    [SerializeField] private GameObject player;
-
     private Vector3 _cameraDragOrigin;
 
-    private float _mapMinX, _mapMaxX ,_mapMinY, _mapMaxY;
+
     private const float MapDelta = 2f;
-
-    private void Awake()
-    {
-        var mapPosition = mapRenderer.transform.position;
-        var bounds = mapRenderer.bounds;
-
-        _mapMinX = mapPosition.x - bounds.size.x / MapDelta;
-        _mapMaxX = mapPosition.x + bounds.size.x / MapDelta;
-
-        _mapMinY = mapPosition.y - bounds.size.y / MapDelta;
-        _mapMaxY = mapPosition.y + bounds.size.y / MapDelta;
-    }
 
     private void Update()
     {
@@ -53,7 +39,7 @@ public class CameraMovement : MonoBehaviour
         var newSize = cam.orthographicSize + zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
 
-        cam.transform.position = ClampCamera(cam.transform.position);
+        cam.transform.position = ClampCamera(cam.transform.position, cam, mapRenderer);
     }
 
     private void ZoomIn()
@@ -61,25 +47,36 @@ public class CameraMovement : MonoBehaviour
         var newSize = cam.orthographicSize - zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
 
-        cam.transform.position = ClampCamera(cam.transform.position);
+        cam.transform.position = ClampCamera(cam.transform.position, cam, mapRenderer);
     }
 
-    private Vector3 ClampCamera(Vector3 targetPosition)
+    private static Vector3 ClampCamera(Vector3 targetPosition, Camera camera, SpriteRenderer mapRenderer)
     {
-        var orthographicSize = cam.orthographicSize;
+        
+        var mapPosition = mapRenderer.transform.position;
+        var bounds = mapRenderer.bounds;
+        
+        var orthographicSize = camera.orthographicSize;
+        var cameraWidth = orthographicSize * camera.aspect;
 
-        var cameraWidth = orthographicSize * cam.aspect;
+        var (mapMinX, mapMaxX, mapMinY, mapMaxY) = GetBounds(mapPosition, bounds);
 
-        var minX = _mapMinX + cameraWidth;
-        var maxX = _mapMaxX - cameraWidth;
+        var minX = mapMinX + cameraWidth;
+        var maxX = mapMaxX - cameraWidth;
 
-        var minY = _mapMinY + orthographicSize;
-        var maxY = _mapMaxY - orthographicSize;
+        var minY = mapMinY + orthographicSize;
+        var maxY = mapMaxY - orthographicSize;
 
         var newXPosition = Mathf.Clamp(targetPosition.x, minX, maxX);
         var newYPosition = Mathf.Clamp(targetPosition.y, minY, maxY);
 
         return new Vector3(newXPosition, newYPosition, targetPosition.z);
+    }
+
+    private static (float, float, float, float) GetBounds(Vector3 mapPosition, Bounds bounds)
+    {
+        return (mapPosition.x - bounds.size.x / MapDelta, mapPosition.x + bounds.size.x / MapDelta,
+            mapPosition.y - bounds.size.y / MapDelta, mapPosition.y + bounds.size.y / MapDelta);
     }
 
     private void PanCamera()
@@ -91,17 +88,17 @@ public class CameraMovement : MonoBehaviour
             return;
 
         var difference = _cameraDragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
-        cam.transform.position = ClampCamera(cam.transform.position + difference);
+        cam.transform.position = ClampCamera(cam.transform.position + difference, cam, mapRenderer);
     }
 
-    public void MoveToPlayer()
+    public static void MoveToPlayer(GameObject player, Camera camera, SpriteRenderer mapRenderer)
     {
         var playerPosition = player.transform.position;
-        var cameraPosition = cam.transform.position;
+        var cameraPosition = camera.transform.position;
         var difference = playerPosition - cameraPosition;
         
         var resultPoint = new Vector3(cameraPosition.x + difference.x, cameraPosition.y + difference.y, cameraPosition.z);
-        cameraPosition = ClampCamera(resultPoint);
-        cam.transform.position = cameraPosition;
+        cameraPosition = ClampCamera(resultPoint, camera, mapRenderer);
+        camera.transform.position = cameraPosition;
     }
 }
