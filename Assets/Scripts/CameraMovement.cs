@@ -10,7 +10,9 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField] private SpriteRenderer mapRenderer;
 
-    private Vector3 _dragOrigin;
+    [SerializeField] private GameObject player;
+
+    private Vector3 _cameraDragOrigin;
 
     private float _mapMinX, _mapMaxX ,_mapMinY, _mapMaxY;
     private const float MapDelta = 2f;
@@ -83,12 +85,23 @@ public class CameraMovement : MonoBehaviour
     private void PanCamera()
     {
         if (Input.GetMouseButtonDown(0))
-            _dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
+            _cameraDragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
 
         if (!Input.GetMouseButton(0))
             return;
 
-        var difference = _dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
+        var difference = _cameraDragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
         cam.transform.position = ClampCamera(cam.transform.position + difference);
+    }
+
+    public void MoveToPlayer()
+    {
+        var playerPosition = player.transform.position;
+        var cameraPosition = cam.transform.position;
+        var difference = playerPosition - cameraPosition;
+        
+        var resultPoint = new Vector3(cameraPosition.x + difference.x, cameraPosition.y + difference.y, cameraPosition.z);
+        cameraPosition = ClampCamera(resultPoint);
+        cam.transform.position = cameraPosition;
     }
 }

@@ -224,6 +224,7 @@ MonoBehaviour:
   zoomStep: 1
   minCamSize: 5
   maxCamSize: 10
+  mapRenderer: {fileID: 1557290735}
 --- !u!1 &1557290734
 GameObject:
   m_ObjectHideFlags: 0
