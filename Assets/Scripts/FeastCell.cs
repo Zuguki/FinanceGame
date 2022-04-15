@@ -1,6 +1,8 @@
-﻿namespace DefaultNamespace
+﻿using UnityEngine;
+
+namespace DefaultNamespace
 {
-    public class FeastCell : ICell
+    public class FeastCell : MonoBehaviour, ICell
     {
         public void ShowDetails()
         {

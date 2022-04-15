@@ -1,6 +1,8 @@
-﻿namespace DefaultNamespace
+﻿using UnityEngine;
+
+namespace DefaultNamespace
 {
-    public class StudyCell : ICell
+    public class StudyCell : MonoBehaviour, ICell
     {
         public void ShowDetails()
         {
