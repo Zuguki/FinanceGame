@@ -12,8 +12,19 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 _cameraDragOrigin;
 
-
     private const float MapDelta = 2f;
+    
+    public static void MoveToPlayer(GameObject player, Camera camera, SpriteRenderer mapRenderer)
+    {
+        var playerPosition = player.transform.position;
+        var cameraPosition = camera.transform.position;
+        var difference = playerPosition - cameraPosition;
+        
+        var resultPoint = 
+            new Vector3(cameraPosition.x + difference.x, cameraPosition.y + difference.y, cameraPosition.z);
+        cameraPosition = ClampCamera(resultPoint, camera, mapRenderer);
+        camera.transform.position = cameraPosition;
+    }
 
     private void Update()
     {
@@ -50,9 +61,8 @@ public class CameraMovement : MonoBehaviour
         cam.transform.position = ClampCamera(cam.transform.position, cam, mapRenderer);
     }
 
-    private static Vector3 ClampCamera(Vector3 targetPosition, Camera camera, SpriteRenderer mapRenderer)
+    private static Vector3 ClampCamera(Vector3 targetPosition, Camera camera, Renderer mapRenderer)
     {
-        
         var mapPosition = mapRenderer.transform.position;
         var bounds = mapRenderer.bounds;
         
@@ -73,11 +83,9 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(newXPosition, newYPosition, targetPosition.z);
     }
 
-    private static (float, float, float, float) GetBounds(Vector3 mapPosition, Bounds bounds)
-    {
-        return (mapPosition.x - bounds.size.x / MapDelta, mapPosition.x + bounds.size.x / MapDelta,
+    private static (float, float, float, float) GetBounds(Vector3 mapPosition, Bounds bounds) => 
+        (mapPosition.x - bounds.size.x / MapDelta, mapPosition.x + bounds.size.x / MapDelta,
             mapPosition.y - bounds.size.y / MapDelta, mapPosition.y + bounds.size.y / MapDelta);
-    }
 
     private void PanCamera()
     {
@@ -91,14 +99,5 @@ public class CameraMovement : MonoBehaviour
         cam.transform.position = ClampCamera(cam.transform.position + difference, cam, mapRenderer);
     }
 
-    public static void MoveToPlayer(GameObject player, Camera camera, SpriteRenderer mapRenderer)
-    {
-        var playerPosition = player.transform.position;
-        var cameraPosition = camera.transform.position;
-        var difference = playerPosition - cameraPosition;
-        
-        var resultPoint = new Vector3(cameraPosition.x + difference.x, cameraPosition.y + difference.y, cameraPosition.z);
-        cameraPosition = ClampCamera(resultPoint, camera, mapRenderer);
-        camera.transform.position = cameraPosition;
-    }
+
 }

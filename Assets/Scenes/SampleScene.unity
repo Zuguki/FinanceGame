@@ -412,6 +412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 269919085}
   - component: {fileID: 269919084}
+  - component: {fileID: 269919086}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -479,13 +480,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269919083}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.24, y: -5.65, z: -1}
+  m_LocalPosition: {x: 9.24, y: -5.65, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &269919086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269919083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c89da95899c59a47a9e3824ca5eca3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWaypoint: 0
+  waypoints:
+  - {fileID: 2034804541}
+  - {fileID: 1496520729}
+  - {fileID: 1343449295}
+  - {fileID: 1329061551}
+  - {fileID: 610310014}
+  - {fileID: 116517640}
+  - {fileID: 1671398547}
+  - {fileID: 1203081535}
+  - {fileID: 1116477420}
+  - {fileID: 500111503}
+  - {fileID: 651185114}
+  - {fileID: 1772982823}
+  - {fileID: 673116237}
+  - {fileID: 1731953663}
+  - {fileID: 1392739885}
+  - {fileID: 710768125}
+  - {fileID: 1875117521}
+  moveSpeed: 5
+  cam: {fileID: 519420031}
+  mapSprite: {fileID: 1557290735}
 --- !u!1 &483724081
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483724081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1322,9 +1357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f243159c32b3694188f68043ed43821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 269919083}
-  cam: {fileID: 519420031}
-  mapSprite: {fileID: 1557290735}
 --- !u!1 &1496520728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557290734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
