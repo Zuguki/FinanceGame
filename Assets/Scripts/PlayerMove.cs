@@ -21,13 +21,14 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         Move();
-        CameraMovement.MoveToPlayer(gameObject, cam, mapSprite);
     }
 
     private void Move()
     {
         if (Cube.IsCubeThrows && _passedSteps < Cube.Steps)
         {
+            CameraMovement.MoveToPlayer(gameObject, cam, mapSprite);
+            
             transform.position = Vector3.MoveTowards(transform.position,
                 waypoints[currentWaypoint].transform.position,
                 moveSpeed * Time.deltaTime);
