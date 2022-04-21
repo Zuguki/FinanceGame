@@ -351,7 +351,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 254127666}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1405973231}
+        m_TargetAssemblyTypeName: Cube, Assembly-CSharp
+        m_MethodName: ThrowCube
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &254127666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,7 +1287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1405973230}
-  - component: {fileID: 1405973229}
+  - component: {fileID: 1405973231}
   m_Layer: 0
   m_Name: ThrowCube
   m_TagString: Untagged
@@ -1283,41 +1295,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1405973229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405973228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aae5b2a718d14340b93578aa04acd74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 2034804540}
-  - {fileID: 1496520728}
-  - {fileID: 1343449294}
-  - {fileID: 1329061550}
-  - {fileID: 610310013}
-  - {fileID: 116517639}
-  - {fileID: 1671398546}
-  - {fileID: 1203081534}
-  - {fileID: 1116477419}
-  - {fileID: 500111502}
-  - {fileID: 651185113}
-  - {fileID: 1772982822}
-  - {fileID: 673116236}
-  - {fileID: 1731953662}
-  - {fileID: 1392739884}
-  - {fileID: 710768124}
-  - {fileID: 1875117520}
-  currentWaypoint: 0
-  player: {fileID: 269919083}
-  moveSpeed: 1
-  cam: {fileID: 519420031}
-  mapSprite: {fileID: 1557290735}
 --- !u!4 &1405973230
 Transform:
   m_ObjectHideFlags: 0
@@ -1333,6 +1310,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1405973231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405973228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f243159c32b3694188f68043ed43821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 269919083}
+  cam: {fileID: 519420031}
+  mapSprite: {fileID: 1557290735}
 --- !u!1 &1496520728
 GameObject:
   m_ObjectHideFlags: 0
