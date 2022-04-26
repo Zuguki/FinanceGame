@@ -36,7 +36,7 @@ namespace DefaultNamespace
         
         public void ShowDetails()
         {
-            _title.text = Random();
+            _title.text = "Fest";
             _info.text = Random();
                         
             cellUI.SetActive(true);
