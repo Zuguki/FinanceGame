@@ -15,7 +15,7 @@ public class Dice : MonoBehaviour
     private Image _renderer;
     private Button _button;
 
-    private const int TwistDice = 20;
+    private const int TwistDice = 10;
 
     private void Start()
     {
