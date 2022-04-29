@@ -31,7 +31,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        if (Cube.IsThrows && _passedSteps < Cube.Steps)
+        if (Dice.IsThrows && _passedSteps < Dice.Steps)
         {
             InLastWaypoint = false;
             CameraMovement.MoveToPlayer(gameObject, cam, mapSprite);
@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
                 LastWaypoint = waypoints[CurrentWaypoint - 1 >= 0 ? CurrentWaypoint - 1 : waypoints.Length - 1];
             
             _passedSteps = 0;
-            Cube.IsThrows = false;
+            Dice.IsThrows = false;
         }
     }
 
