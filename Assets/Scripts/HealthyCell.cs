@@ -42,7 +42,6 @@ namespace DefaultNamespace
             cellUI.SetActive(true);
         }
         
-        
         private void Success()
         {
             cellUI.SetActive(false);
@@ -58,6 +57,5 @@ namespace DefaultNamespace
 
             return result.ToString();
         }    
-
     }
 }
