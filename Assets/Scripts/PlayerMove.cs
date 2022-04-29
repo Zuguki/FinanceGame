@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
 
     private int _passedSteps;
     private bool _isStartPosition;
+    private const int RotationRatio = 90;
 
     private void Start()
     {
@@ -42,6 +43,7 @@ public class PlayerMove : MonoBehaviour
             if (transform.position != waypoints[CurrentWaypoint].transform.position)
                 return;
             
+            gameObject.transform.rotation = SetRotation();
             CurrentWaypoint = (CurrentWaypoint + 1) % waypoints.Length;
             
             if (_isStartPosition)
@@ -53,10 +55,29 @@ public class PlayerMove : MonoBehaviour
         {
             InLastWaypoint = _passedSteps > 0;
             if (InLastWaypoint)
-                LastWaypoint = waypoints[CurrentWaypoint - 1];
+                LastWaypoint = waypoints[CurrentWaypoint - 1 >= 0 ? CurrentWaypoint - 1 : waypoints.Length - 1];
             
             _passedSteps = 0;
             Cube.IsThrows = false;
         }
+    }
+
+    private Quaternion SetRotation()
+    {
+        var ratio = 0;
+
+        if (waypoints[(CurrentWaypoint + 1) % waypoints.Length].transform.position.x > gameObject.transform.position.x)
+            ratio = RotationRatio * 0;
+        else if (waypoints[(CurrentWaypoint + 1) % waypoints.Length].transform.position.x <
+                 gameObject.transform.position.x)
+            ratio = RotationRatio * 2;
+        else if (waypoints[(CurrentWaypoint + 1) % waypoints.Length].transform.position.y <
+                 gameObject.transform.position.y)
+            ratio = RotationRatio * 3;
+        else if (waypoints[(CurrentWaypoint + 1) % waypoints.Length].transform.position.y >
+                 gameObject.transform.position.y)
+            ratio = RotationRatio * 1;
+
+        return Quaternion.AngleAxis(ratio, Vector3.forward);
     }
 }
