@@ -1998,6 +1998,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1274845961224166938, guid: 331529a936510c54c80dade15580473e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009559624756001729, guid: 331529a936510c54c80dade15580473e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145714688811240521, guid: 331529a936510c54c80dade15580473e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4996184674778650177, guid: 331529a936510c54c80dade15580473e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 60
@@ -2006,13 +2018,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -185
       objectReference: {fileID: 0}
+    - target: {fileID: 6319273483272890957, guid: 331529a936510c54c80dade15580473e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6402726589228023377, guid: 331529a936510c54c80dade15580473e, type: 3}
       propertyPath: m_Name
       value: BusinesUI
       objectReference: {fileID: 0}
     - target: {fileID: 6402726589228023377, guid: 331529a936510c54c80dade15580473e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 331529a936510c54c80dade15580473e, type: 3}
