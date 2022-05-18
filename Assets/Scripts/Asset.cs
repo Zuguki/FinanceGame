@@ -4,15 +4,14 @@
     {
         public string Title { get; }
         public int Price { get; }
-        public int IncomeValue { get; }
-        
+        public int Value { get; }
         public int NeedsTime { get; }
 
-        public Asset(string title, int price, int incomeValue, int needsTime)
+        public Asset(string title, int price, int value, int needsTime)
         {
             Title = title;
             Price = price;
-            IncomeValue = incomeValue;
+            Value = value;
             NeedsTime = needsTime;
         }
     }
