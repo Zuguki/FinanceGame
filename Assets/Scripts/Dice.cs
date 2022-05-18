@@ -44,7 +44,9 @@ public class Dice : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        Steps++;
+        // TODO: turne back
+        // Steps++;
+        Steps = 4;
         IsThrows = true;
         Debug.Log(Steps);
         _coroutineAllowed = true;
