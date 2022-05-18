@@ -3,15 +3,15 @@
     public class Passive
     {
         public string Title { get; }
-        public int MoneyForMonth { get; private set; }
-        public int TimeForMonth { get; private set; }
+        public int Value { get; private set; }
+        public int Time { get; private set; }
         public int MonthLength { get; set; }
 
-        public Passive(string title, int moneyForMonth, int timeForMonth, int monthLength)
+        public Passive(string title, int value, int time, int monthLength)
         {
             Title = title;
-            MoneyForMonth = moneyForMonth;
-            TimeForMonth = timeForMonth;
+            Value = value;
+            Time = time;
             MonthLength = monthLength;
         }
     }
