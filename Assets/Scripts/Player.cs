@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject playerInfoUI;
     
     private const int TimePerMonth = 100;
-    public static int Cash;
+    
+    public static int Cash = 10000000;
     public static List<Income> Incomes = new();
     public static List<Expense> Expenses = new();
     public static List<Passive> Liabilities = new();
