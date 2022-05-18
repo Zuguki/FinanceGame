@@ -59,6 +59,7 @@ namespace DefaultNamespace
                 var festsCount = _feasts.Count(info => info.IsLiabilities() is false);
                 _feast = _feasts.Where(info => info.IsLiabilities() is false).ToList()[rnd.Next(0, festsCount - 1)];
                 _price = percent / 10 * Player.Cash;
+                Debug.Log(percent);
             }
             else
             {
@@ -66,6 +67,7 @@ namespace DefaultNamespace
                 var festCount = _feasts.Count(info => info.IsLiabilities());
                 _feast = _feasts.Where(info => info.IsLiabilities()).ToList()[rnd.Next(0, festCount - 1)];
                 _price = percent / 10 * Player.Cash;
+                Debug.Log(percent);
             }
         }
 
@@ -83,6 +85,7 @@ namespace DefaultNamespace
             Player.Mood += rnd.Next(1, 2);
             Player.Cash -= _price;
             cellUI.SetActive(false);
+            Player.NeedsUpdate = true;
         }
 
         private void Cancel()
@@ -91,6 +94,7 @@ namespace DefaultNamespace
 
             Player.Mood -= rnd.Next(1, 3);
             cellUI.SetActive(false);
+            Player.NeedsUpdate = true;
         }
     }
 }
