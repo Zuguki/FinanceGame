@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject playerInfoUI;
     
     private const int TimePerMonth = 100;
-    public static int Cash, Mood;
+    public static int Cash;
     public static List<Income> Incomes = new();
     public static List<Expense> Expenses = new();
     public static List<Passive> Liabilities = new();
@@ -25,6 +25,20 @@ public class Player : MonoBehaviour
                                                + Expenses.Sum(exp => exp.Time)
                                                + Liabilities.Sum(pas => pas.Time) +
                                                Assets.Sum(asset => asset.Time));
+
+    public static int Mood
+    {
+        get => Mood;
+        set
+        {
+            Mood = value switch
+            {
+                > 10 => 10,
+                < 0 => 0,
+                _ => value
+            };
+        }
+    }
 
     private TextMeshProUGUI _cashText, _cashFlowText, _incomeText, _expensesText, _assetsText, _liabilitiesText,
         _freeTimeText, _moodText;
