@@ -2,13 +2,13 @@
 {
     public class Income
     {
-        public int IncomeTitle { get; }
-        public int IncomeValue { get; }
+        public int Title { get; }
+        public int Value { get; }
 
-        public Income(int incomeTitle, int incomeValue)
+        public Income(int title, int value)
         {
-            IncomeTitle = incomeTitle;
-            IncomeValue = incomeValue;
+            Title = title;
+            Value = value;
         }
     }
 }
