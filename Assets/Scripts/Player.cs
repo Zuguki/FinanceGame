@@ -29,10 +29,10 @@ public class Player : MonoBehaviour
 
     public static int Mood
     {
-        get => Mood;
+        get => _mood;
         set
         {
-            Mood = value switch
+            _mood = value switch
             {
                 > 10 => 10,
                 < 0 => 0,
@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
 
     private TextMeshProUGUI _cashText, _cashFlowText, _incomeText, _expensesText, _assetsText, _liabilitiesText,
         _freeTimeText, _moodText;
+
+    private static int _mood = 5;
 
     private void Awake()
     {
