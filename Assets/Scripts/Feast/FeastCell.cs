@@ -2,6 +2,7 @@
 using DefaultNamespace.Feast;
 using Feast;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -35,9 +36,6 @@ namespace DefaultNamespace
 
             _cancelButton = cellUI.transform.GetChild(3).GetComponent<Button>();
             _cancelButtonText = cellUI.transform.GetChild(3).GetComponentInChildren<TextMeshProUGUI>();
-            
-            _successButton.onClick.AddListener(Success);
-            _cancelButton.onClick.AddListener(Cancel);
         }
         
         public void ShowDetails()
@@ -45,6 +43,12 @@ namespace DefaultNamespace
             SetFeastInfo();
             _title.text = _feast.Title();
             _info.text = _feast.Details(_price);
+            
+            _successButton.onClick.RemoveAllListeners();
+            _successButton.onClick.AddListener(Success);
+            
+            _cancelButton.onClick.RemoveAllListeners();
+            _cancelButton.onClick.AddListener(Cancel);
             
             cellUI.SetActive(true);
         }
@@ -55,30 +59,28 @@ namespace DefaultNamespace
             
             if (Player.Mood > 5)
             {
-                var percent = rnd.Next(1, 10);
-                var festsCount = _feasts.Count(info => info.IsLiabilities() is false);
-                _feast = _feasts.Where(info => info.IsLiabilities() is false).ToList()[rnd.Next(0, festsCount - 1)];
-                _price = percent / 10 * Player.Cash;
-                Debug.Log(percent);
+                var percent = rnd.Next(1, 10) * 0.01;
+                var feastsCount = _feasts.Count(info => info.IsLiabilities() is false);
+                _feast = _feasts.Where(info => info.IsLiabilities() is false).ToList()[rnd.Next(0, feastsCount - 1)];
+                _price = (int)(percent * Player.Cash);
             }
             else
             {
-                var percent = rnd.Next(1, 5);
-                var festCount = _feasts.Count(info => info.IsLiabilities());
-                _feast = _feasts.Where(info => info.IsLiabilities()).ToList()[rnd.Next(0, festCount - 1)];
-                _price = percent / 10 * Player.Cash;
-                Debug.Log(percent);
+                var percent = rnd.Next(1, 5) * 0.01;
+                var feastsCount = _feasts.Count(info => info.IsLiabilities());
+                _feast = _feasts.Where(info => info.IsLiabilities()).ToList()[rnd.Next(0, feastsCount - 1)];
+                _price = (int)(percent * Player.Cash);
             }
         }
 
         private void Success()
         {
             var rnd = new Random();
-
+            
             if (_feast.IsLiabilities())
             {
                 // TODO: Сделать timeForMonth, monthLength
-                var passive = new Passive(_feast.Title(), _price, 0, 12);
+                var passive = new Passive(_feast.Title(), _price, 1, 12);
                 Player.Liabilities.Add(passive);
             }
             
