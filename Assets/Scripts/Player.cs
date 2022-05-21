@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     public static int FreeTime => TimePerMonth - (Incomes.Sum(inc => inc.Time)
                                                   + Expenses.Sum(exp => exp.Time)
                                                   + Liabilities.Sum(pas => pas.Time) +
-                                                  Assets.Sum(asset => asset.Time));
+                                                  Assets.Sum(asset => asset.NeedsTime));
 
     public static int Mood
     {
