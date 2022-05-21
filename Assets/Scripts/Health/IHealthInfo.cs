@@ -4,5 +4,7 @@
     {
         public string Title();
         public string Details(int price);
+
+        public int Time();
     }
 }

@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Dice : MonoBehaviour
 { 
-    public static bool IsThrows = false;
+    public static bool IsThrows;
     public static int Steps { get; private set; }
 
     private bool _coroutineAllowed = true;
