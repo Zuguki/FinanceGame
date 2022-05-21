@@ -61,7 +61,8 @@ namespace DefaultNamespace
 
         private void Success()
         {
-            Player.Assets.Add(new Asset(_healthInfo.Title(), _price, 0, 1, 0, 12));
+            Player.Assets.Add(new Asset
+                (_healthInfo.Title(), _price, 0, 1, _healthInfo.Time(), 12));
             cellUI.SetActive(false);
         }
 
