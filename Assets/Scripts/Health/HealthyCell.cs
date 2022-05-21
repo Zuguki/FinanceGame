@@ -58,9 +58,15 @@ namespace DefaultNamespace
             var percent = rnd.Next(1, 5) * 0.01;
             var goodInfo = _healthInfos
                 .Where(info => Player.Assets.All(p => p.Title != info.Title())).ToList();
+
+            if (goodInfo.Count > 0)
+            {
+                _healthInfo = goodInfo[rnd.Next(0, goodInfo.Count - 1)]; 
+                _price = (int) (percent * Player.Cash);
+            }
+            else
+                _healthInfo = new DefaultHealth();
             
-            _healthInfo = goodInfo[rnd.Next(0, goodInfo.Count - 1)];
-            _price = (int) (percent * Player.Cash);
         }
 
         private void Success()
