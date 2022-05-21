@@ -18,6 +18,10 @@ namespace DefaultNamespace
         
         private TextMeshProUGUI _successButtonText;
         private TextMeshProUGUI _cancelButtonText;
+
+        private IHealthInfo[] _healthInfos;
+        private IHealthInfo _healthInfo;
+        private int _price;
         
         private void Awake()
         {
@@ -29,33 +33,40 @@ namespace DefaultNamespace
 
             _cancelButton = cellUI.transform.GetChild(3).GetComponent<Button>();
             _cancelButtonText = cellUI.transform.GetChild(3).GetComponentInChildren<TextMeshProUGUI>();
-            
-            _successButton.onClick.AddListener(Success);
-            _cancelButton.onClick.AddListener(Success);
         }
         
         public void ShowDetails()
         {
-            _title.text = "Health";
-            _info.text = Random();
+            SetHealthInfo();
+            _title.text = _healthInfo.Title();
+            _info.text = _healthInfo.Details(_price);
                         
+            _successButton.onClick.RemoveAllListeners();
+            _successButton.onClick.AddListener(Success);
+            
+            _cancelButton.onClick.RemoveAllListeners();
+            _cancelButton.onClick.AddListener(Cancel);
+
             cellUI.SetActive(true);
         }
-        
+
+        private void SetHealthInfo()
+        {
+            var rnd = new Random();
+
+            var percent = rnd.Next(1, 5) * 0.01;
+            _healthInfo = _healthInfos[rnd.Next(0, _healthInfos.Length - 1)];
+            _price = (int) (percent * Player.Cash);
+        }
+
         private void Success()
         {
             cellUI.SetActive(false);
         }
 
-        private string Random()
+        private void Cancel()
         {
-            var rnd = new Random();
-            var result = new StringBuilder();
             
-            for (var index = 0; index < 5; index++)
-                result.Append(rnd.Next(0, 1000));
-
-            return result.ToString();
-        }    
+        }
     }
 }
