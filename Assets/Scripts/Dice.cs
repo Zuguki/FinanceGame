@@ -44,7 +44,7 @@ public class Dice : MonoBehaviour
 
         // TODO: turne back
         // Steps++;
-        Steps = 4;
+        Steps = 3;
         IsThrows = true;
         Debug.Log(Steps);
         _coroutineAllowed = true;
