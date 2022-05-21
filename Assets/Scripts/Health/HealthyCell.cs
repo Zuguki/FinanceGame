@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ namespace DefaultNamespace
         private TextMeshProUGUI _successButtonText;
         private TextMeshProUGUI _cancelButtonText;
 
-        private IHealthInfo[] _healthInfos;
+        private readonly IHealthInfo[] _healthInfos = {new Sport(), new GoodFood()};
         private IHealthInfo _healthInfo;
         private int _price;
         
@@ -55,7 +56,10 @@ namespace DefaultNamespace
             var rnd = new Random();
 
             var percent = rnd.Next(1, 5) * 0.01;
-            _healthInfo = _healthInfos[rnd.Next(0, _healthInfos.Length - 1)];
+            var goodInfo = _healthInfos
+                .Where(info => Player.Assets.All(p => p.Title != info.Title())).ToList();
+            
+            _healthInfo = goodInfo[rnd.Next(0, goodInfo.Count - 1)];
             _price = (int) (percent * Player.Cash);
         }
 
@@ -63,6 +67,7 @@ namespace DefaultNamespace
         {
             Player.Assets.Add(new Asset
                 (_healthInfo.Title(), _price, 0, 1, _healthInfo.Time(), 12));
+            
             cellUI.SetActive(false);
         }
 
