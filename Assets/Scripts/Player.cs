@@ -60,18 +60,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        TryUpMood();
         if (NeedsUpdate)
             UpdateUIValues();
-    }
-
-    private static void TryUpMood()
-    {
-        if (Assets.Any(asset => asset.HealthValue == 1))
-        {
-            Mood += Random.Range(0, 100) > 95 ? 1 : 0;
-            Debug.Log("Обнова");
-        }
     }
 
     private void UpdateUIValues()
