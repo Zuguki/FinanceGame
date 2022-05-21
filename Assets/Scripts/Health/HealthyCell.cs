@@ -61,12 +61,10 @@ namespace DefaultNamespace
 
         private void Success()
         {
+            Player.Assets.Add(new Asset(_healthInfo.Title(), _price, 0, 1, 0, -1));
             cellUI.SetActive(false);
         }
 
-        private void Cancel()
-        {
-            
-        }
+        private void Cancel() => cellUI.SetActive(false);
     }
 }

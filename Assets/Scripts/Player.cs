@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
     
-    public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => asset.Value) 
+    public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => asset.IncomeValue) 
                                   - (Expenses.Sum(exp => exp.Value) 
                                      + Liabilities.Sum(pas => pas.Value));
 
