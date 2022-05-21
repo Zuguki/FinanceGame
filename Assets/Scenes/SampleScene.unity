@@ -2250,6 +2250,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1276465933255414533, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1276465933255414533, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260529379904148836, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260529379904148836, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
+      objectReference: {fileID: 0}
     - target: {fileID: 8658018757032993680, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
       propertyPath: m_Name
       value: HealthUI

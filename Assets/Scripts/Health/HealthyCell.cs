@@ -66,11 +66,17 @@ namespace DefaultNamespace
         private void Success()
         {
             Player.Assets.Add(new Asset
-                (_healthInfo.Title(), _price, 0, 1, _healthInfo.Time(), 12));
+                (_healthInfo.Title(), _price, 0, 1, 0, _healthInfo.Time()));
+            Player.Cash -= _price;
             
             cellUI.SetActive(false);
+            Player.NeedsUpdate = true;
         }
 
-        private void Cancel() => cellUI.SetActive(false);
+        private void Cancel()
+        {
+            cellUI.SetActive(false);
+            Player.NeedsUpdate = true;
+        }
     }
 }
