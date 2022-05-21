@@ -6,5 +6,7 @@
         public string Details(int price);
 
         public int Time();
+
+        public int NeedsTime();
     }
 }
