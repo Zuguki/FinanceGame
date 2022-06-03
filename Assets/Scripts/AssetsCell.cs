@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
-    public class BusinessCell : MonoBehaviour, ICell
+    public class AssetsCell : MonoBehaviour, ICell
     {
         [SerializeField] private GameObject cellUI;
         
