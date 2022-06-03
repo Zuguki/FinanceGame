@@ -19,13 +19,20 @@ namespace DefaultNamespace
         private GameObject _realtyUI;
         private Button _lowRealtyButton, _middleRealtyButton, _heightRealtyButton;
 
+        private GameObject _choiceUI;
+        private Button _acceptButton, _rejectButton;
+        private TextMeshProUGUI _choiceTitle, _choiceDescription;
+
         private Button _backButton;
+
+        private IBusinessInfo[] _businessInfos = { };
 
         private void Awake()
         {
             SetAssetsUI();
             SetBusinessUI();
             SetRealtyUI();
+            SetChoiceUI();
         }
 
         private void SetAssetsUI()
@@ -37,6 +44,7 @@ namespace DefaultNamespace
             _cancelButton = cellUI.transform.GetChild(3).GetComponent<Button>();
             _businessUI = cellUI.transform.GetChild(4).gameObject;
             _realtyUI = cellUI.transform.GetChild(5).gameObject;
+            _choiceUI = cellUI.transform.GetChild(6).gameObject;
 
             _realty = _realtyButton.GetComponentInChildren<TextMeshProUGUI>();
             _business = _businessButton.GetComponentInChildren<TextMeshProUGUI>();
@@ -92,12 +100,24 @@ namespace DefaultNamespace
             _backButton.onClick.AddListener(Back);
         }
 
+        private void SetChoiceUI()
+        {
+            _choiceTitle = _choiceUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            _choiceDescription = _choiceUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            _acceptButton = _choiceUI.transform.GetChild(2).GetComponent<Button>();
+            _rejectButton = _choiceUI.transform.GetChild(3).GetComponent<Button>();
+            _backButton = _choiceUI.transform.GetChild(4).GetComponent<Button>();
+            
+            _rejectButton.onClick.RemoveAllListeners();
+            _rejectButton.onClick.AddListener(Cancel);
+        }
+
         private void ShowRealty(Realty realty)
         {
             switch (realty)
             {
                 case Realty.Low:
-                    Debug.Log("Low Realty");
+                    
                     break;
                 case Realty.Middle:
                     Debug.Log("Middle Realty");
@@ -132,6 +152,7 @@ namespace DefaultNamespace
         {
             _businessUI.SetActive(false);
             _realtyUI.SetActive(false);
+            _choiceUI.SetActive(false);
         }
 
         public void ShowDetails()
