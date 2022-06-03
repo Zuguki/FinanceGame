@@ -4,6 +4,7 @@
     {
         Low,
         Middle,
-        Height
+        Height,
+        None
     }
 }
