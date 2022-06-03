@@ -27,6 +27,8 @@ namespace DefaultNamespace
 
         private IBusinessInfo[] _businessInfos = { };
 
+        private IRealtyInfo[] _realtyInfos = { };
+
         private void Awake()
         {
             SetAssetsUI();
