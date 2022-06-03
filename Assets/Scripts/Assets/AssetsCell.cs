@@ -28,9 +28,9 @@ namespace DefaultNamespace
 
         private Button _backButton;
 
-        private IBusinessInfo[] _businessInfos = { new Pivovarnya() };
+        private readonly IBusinessInfo[] _businessInfos = { new Pivovarnya() };
 
-        private IRealtyInfo[] _realtyInfos = { };
+        private readonly IRealtyInfo[] _realtyInfos = { new Home() };
 
         private void Awake()
         {
@@ -73,13 +73,13 @@ namespace DefaultNamespace
             _backButton = _businessUI.transform.GetChild(4).GetComponent<Button>();
 
             _lowBusinessButton.onClick.RemoveAllListeners();
-            _lowBusinessButton.onClick.AddListener(() => ShowBusiness(Business.Low));
+            _lowBusinessButton.onClick.AddListener(() => ShowChoice(Business.Low));
 
             _middleBusinessButton.onClick.RemoveAllListeners();
-            _middleBusinessButton.onClick.AddListener(() => ShowBusiness(Business.Middle));
+            _middleBusinessButton.onClick.AddListener(() => ShowChoice(Business.Middle));
 
             _heightBusinessButton.onClick.RemoveAllListeners();
-            _heightBusinessButton.onClick.AddListener(() => ShowBusiness(Business.Height));
+            _heightBusinessButton.onClick.AddListener(() => ShowChoice(Business.Height));
 
             _backButton.onClick.RemoveAllListeners();
             _backButton.onClick.AddListener(Back);
@@ -93,13 +93,13 @@ namespace DefaultNamespace
             _backButton = _realtyUI.transform.GetChild(4).GetComponent<Button>();
             
             _lowRealtyButton.onClick.RemoveAllListeners();
-            _lowRealtyButton.onClick.AddListener(() => ShowRealty(Realty.Low));
+            _lowRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Low));
             
             _middleRealtyButton.onClick.RemoveAllListeners();
-            _middleRealtyButton.onClick.AddListener(() => ShowRealty(Realty.Middle));
+            _middleRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Middle));
             
             _heightRealtyButton.onClick.RemoveAllListeners();
-            _heightRealtyButton.onClick.AddListener(() => ShowRealty(Realty.Height));
+            _heightRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Height));
             
             _backButton.onClick.RemoveAllListeners();
             _backButton.onClick.AddListener(Back);
@@ -115,50 +115,15 @@ namespace DefaultNamespace
             
             _rejectButton.onClick.RemoveAllListeners();
             _rejectButton.onClick.AddListener(Cancel);
-        }
-
-        private void ShowRealty(Realty realty)
-        {
-            switch (realty)
-            {
-                case Realty.Low:
-                    ShowChoice(realty: realty);
-                    break;
-                case Realty.Middle:
-                    Debug.Log("Middle Realty");
-                    break;
-                case Realty.Height:
-                    Debug.Log("Height Realty");
-                    break;
-                case Realty.None:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(realty), realty, null);
-            }
-        }
-
-        private void ShowBusiness(Business business)
-        {
-            switch (business)
-            {
-                case Business.Low:
-                    ShowChoice(Business.Low);
-                    break;
-                case Business.Middle:
-                    Debug.Log("Middle business");
-                    break;
-                case Business.Height:
-                    Debug.Log("Height business");
-                    break;
-                case Business.None:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(business), business, null);
-            }
+            
+            _backButton.onClick.RemoveAllListeners();
+            _backButton.onClick.AddListener(Back);
         }
 
         private void ShowChoice(Business business = Business.None, Realty realty = Realty.None)
         {
+            _choiceUI.SetActive(true);
+            
             if (business is not Business.None)
             {
                 var currentList = _businessInfos.Where(bus => bus.BusinessInfo == business).ToList();
@@ -196,6 +161,8 @@ namespace DefaultNamespace
                 currentItem.NeedsTime));
             Player.Cash -= currentItem.Price;
             Player.NeedsUpdate = true;
+            
+            Cancel();
         }
 
         private void ShowChoiceByBusiness(IBusinessInfo currentItem)
@@ -211,6 +178,8 @@ namespace DefaultNamespace
                 currentItem.NeedsTime));
             Player.Cash -= currentItem.Price;
             Player.NeedsUpdate = true;
+            
+            Cancel();
         }
 
         private void Back()
@@ -240,6 +209,9 @@ namespace DefaultNamespace
         private void Cancel()
         {
             cellUI.SetActive(false);
+            _businessUI.SetActive(false);
+            _realtyUI.SetActive(false);
+            _choiceUI.SetActive(false);
         }
     }
 }
