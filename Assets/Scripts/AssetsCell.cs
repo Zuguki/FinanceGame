@@ -14,34 +14,42 @@ namespace DefaultNamespace
         private Button _realtyButton;
         private Button _cancelButton;
 
-        private TextMeshProUGUI _business;
         private TextMeshProUGUI _realty;
+        private TextMeshProUGUI _business;
         private TextMeshProUGUI _cancel;
         
         private void Awake()
         {
             _title = cellUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-            _businessButton = cellUI.transform.GetChild(1).GetComponent<Button>();
-            _realtyButton = cellUI.transform.GetChild(2).GetComponent<Button>();
-            _cancelButton = cellUI.transform.GetChild(4).GetComponent<Button>();
+            _realtyButton = cellUI.transform.GetChild(1).GetComponent<Button>();
+            _businessButton = cellUI.transform.GetChild(2).GetComponent<Button>();
+            _cancelButton = cellUI.transform.GetChild(3).GetComponent<Button>();
 
-            _business = _businessButton.GetComponentInChildren<TextMeshProUGUI>();
             _realty = _realtyButton.GetComponentInChildren<TextMeshProUGUI>();
+            _business = _businessButton.GetComponentInChildren<TextMeshProUGUI>();
             _cancel = _cancelButton.GetComponentInChildren<TextMeshProUGUI>();
             
-            _cancelButton.onClick.AddListener(Success);
+            _realtyButton.onClick.RemoveAllListeners();
+            _realtyButton.onClick.AddListener(ShowRealty);
+
+            _cancelButton.onClick.RemoveAllListeners();
+            _cancelButton.onClick.AddListener(Cancel);
         }
         
         public void ShowDetails()
         {
-            _title.text = "Выбери";
+            _title.text = "Предложенные варианты:";
             
             cellUI.SetActive(true);
         }
+
+        private void ShowRealty()
+        {
+            
+        }
         
-        
-        private void Success()
+        private void Cancel()
         {
             cellUI.SetActive(false);
         }
