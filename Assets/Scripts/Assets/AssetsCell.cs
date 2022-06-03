@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -21,11 +24,11 @@ namespace DefaultNamespace
 
         private GameObject _choiceUI;
         private Button _acceptButton, _rejectButton;
-        private TextMeshProUGUI _choiceTitle, _choiceDescription;
+        private TextMeshProUGUI _choiceTitle, _choiceDetails;
 
         private Button _backButton;
 
-        private IBusinessInfo[] _businessInfos = { };
+        private IBusinessInfo[] _businessInfos = { new Pivovarnya() };
 
         private IRealtyInfo[] _realtyInfos = { };
 
@@ -105,7 +108,7 @@ namespace DefaultNamespace
         private void SetChoiceUI()
         {
             _choiceTitle = _choiceUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            _choiceDescription = _choiceUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            _choiceDetails = _choiceUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             _acceptButton = _choiceUI.transform.GetChild(2).GetComponent<Button>();
             _rejectButton = _choiceUI.transform.GetChild(3).GetComponent<Button>();
             _backButton = _choiceUI.transform.GetChild(4).GetComponent<Button>();
@@ -119,13 +122,15 @@ namespace DefaultNamespace
             switch (realty)
             {
                 case Realty.Low:
-                    
+                    ShowChoice(realty: realty);
                     break;
                 case Realty.Middle:
                     Debug.Log("Middle Realty");
                     break;
                 case Realty.Height:
                     Debug.Log("Height Realty");
+                    break;
+                case Realty.None:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(realty), realty, null);
@@ -137,7 +142,7 @@ namespace DefaultNamespace
             switch (business)
             {
                 case Business.Low:
-                    Debug.Log("Low business");
+                    ShowChoice(Business.Low);
                     break;
                 case Business.Middle:
                     Debug.Log("Middle business");
@@ -145,9 +150,67 @@ namespace DefaultNamespace
                 case Business.Height:
                     Debug.Log("Height business");
                     break;
+                case Business.None:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(business), business, null);
             }
+        }
+
+        private void ShowChoice(Business business = Business.None, Realty realty = Realty.None)
+        {
+            if (business is not Business.None)
+            {
+                var currentList = _businessInfos.Where(bus => bus.BusinessInfo == business).ToList();
+                var currentItem = currentList[Random.Range(0, currentList.Count)];
+                
+                _choiceTitle.text = currentItem.Title;
+                _choiceDetails.text = currentItem.Details;
+                
+                _acceptButton.onClick.RemoveAllListeners();
+                _acceptButton.onClick.AddListener(() => ShowChoiceByBusiness(currentItem));
+            }
+            else if (realty is not Realty.None)
+            {
+                var currentList = _realtyInfos.Where(rea => rea.RealtyInfo == realty).ToList();
+                var currentItem = currentList[Random.Range(0, currentList.Count)];
+
+                _choiceTitle.text = currentItem.Title;
+                _choiceDetails.text = currentItem.Details;
+                
+                _acceptButton.onClick.RemoveAllListeners();
+                _acceptButton.onClick.AddListener(() => ShowChoiceByRealty(currentItem));
+            }
+        }
+
+        private void ShowChoiceByRealty(IRealtyInfo currentItem)
+        {
+            // TODO: Добавить кредиты
+            if (Player.Cash < currentItem.Price)
+            {
+                Cancel();
+                return;
+            }
+
+            Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
+                currentItem.NeedsTime));
+            Player.Cash -= currentItem.Price;
+            Player.NeedsUpdate = true;
+        }
+
+        private void ShowChoiceByBusiness(IBusinessInfo currentItem)
+        {
+            // TODO: Добавить кредиты
+            if (Player.Cash < currentItem.Price)
+            {
+                Cancel();
+                return;
+            }
+            // TODO: Проверить с отрицательными значениями
+            Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
+                currentItem.NeedsTime));
+            Player.Cash -= currentItem.Price;
+            Player.NeedsUpdate = true;
         }
 
         private void Back()
