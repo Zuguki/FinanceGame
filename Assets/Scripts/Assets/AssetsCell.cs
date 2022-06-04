@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -28,9 +27,11 @@ namespace DefaultNamespace
 
         private Button _backButton;
 
-        private readonly IBusinessInfo[] _businessInfos = { new Pivovarnya() };
+        private readonly IAsset _defaultBusiness = new DefaultBusinessNotification();
 
-        private readonly IRealtyInfo[] _realtyInfos = { new Home() };
+        private readonly IAsset[] _assetInfos = { new Pivovarnya(), new Home() };
+
+        private readonly IAsset _defaultRealty = new DefaultRealtyNotification();
 
         private void Awake()
         {
@@ -123,52 +124,44 @@ namespace DefaultNamespace
         private void ShowChoice(Business business = Business.None, Realty realty = Realty.None)
         {
             _choiceUI.SetActive(true);
-            
-            if (business is not Business.None)
-            {
-                var currentList = _businessInfos.Where(bus => bus.BusinessInfo == business).ToList();
-                var currentItem = currentList[Random.Range(0, currentList.Count)];
-                
-                _choiceTitle.text = currentItem.Title;
-                _choiceDetails.text = currentItem.Details;
-                
-                _acceptButton.onClick.RemoveAllListeners();
-                _acceptButton.onClick.AddListener(() => ShowChoiceByBusiness(currentItem));
-            }
-            else if (realty is not Realty.None)
-            {
-                var currentList = _realtyInfos.Where(rea => rea.RealtyInfo == realty).ToList();
-                var currentItem = currentList[Random.Range(0, currentList.Count)];
 
-                _choiceTitle.text = currentItem.Title;
-                _choiceDetails.text = currentItem.Details;
+            var currentList = business is not Business.None
+                ? _assetInfos.Where(bus => bus.BusinessInfo == business
+                                              && Player.Assets.All(asset => asset.Title != bus.Title))
+                    .ToList()
+                : _assetInfos.Where(rea =>
+                        rea.RealtyInfo == realty && Player.Assets.All(asset => asset.Title != rea.Title))
+                    .ToList();
+
+            var asset = business is not Business.None
+                ? GetItemByAssets(currentList)
+                : GetItemByAssets(currentList, false);
+
+            _choiceTitle.text = asset.Title;
+            _choiceDetails.text = asset.Details;
                 
-                _acceptButton.onClick.RemoveAllListeners();
-                _acceptButton.onClick.AddListener(() => ShowChoiceByRealty(currentItem));
-            }
+            _acceptButton.onClick.RemoveAllListeners();
+            _acceptButton.onClick.AddListener(() => ShowChoiceByAsset(asset));
         }
 
-        private void ShowChoiceByRealty(IRealtyInfo currentItem)
+        private IAsset GetItemByAssets(IReadOnlyList<IAsset> assets, bool isBusiness = true)
         {
-            // TODO: Добавить кредиты
-            if (Player.Cash < currentItem.Price)
+            if (isBusiness)
             {
-                Cancel();
-                return;
+                return assets.Count == 0
+                    ? _defaultBusiness
+                    : assets[Random.Range(0, assets.Count)];
             }
 
-            Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
-                currentItem.NeedsTime));
-            Player.Cash -= currentItem.Price;
-            Player.NeedsUpdate = true;
-            
-            Cancel();
+            return assets.Count == 0
+                ? _defaultRealty
+                : assets[Random.Range(0, assets.Count)];
         }
 
-        private void ShowChoiceByBusiness(IBusinessInfo currentItem)
+        private void ShowChoiceByAsset(IAsset currentItem)
         {
             // TODO: Добавить кредиты
-            if (Player.Cash < currentItem.Price)
+            if (Player.Cash < currentItem.Price || currentItem == _defaultRealty || currentItem == _defaultBusiness)
             {
                 Cancel();
                 return;
@@ -196,15 +189,11 @@ namespace DefaultNamespace
             cellUI.SetActive(true);
         }
 
-        private void ShowRealtyUI()
-        {
+        private void ShowRealtyUI() => 
             _realtyUI.SetActive(true);
-        }
         
-        private void ShowBusinessUI()
-        {
+        private void ShowBusinessUI() => 
             _businessUI.SetActive(true);
-        }
         
         private void Cancel()
         {
