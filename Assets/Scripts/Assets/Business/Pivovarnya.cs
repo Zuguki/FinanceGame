@@ -1,6 +1,6 @@
 ﻿namespace DefaultNamespace
 {
-    public class Pivovarnya : IBusinessInfo
+    public class Pivovarnya : IAsset
     {
         public string Title => "Пивоварня";
 
@@ -12,5 +12,6 @@
         public int NeedsTime => 25;
         public int Income => 50_000;
         public Business BusinessInfo => Business.Low;
+        public Realty RealtyInfo => Realty.None;
     }
 }
