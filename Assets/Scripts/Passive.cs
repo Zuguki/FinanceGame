@@ -4,14 +4,14 @@
     {
         public string Title { get; }
         public int Value { get; private set; }
-        public int Time { get; private set; }
+        public int ExpirationDate { get; set; }
         public int MonthLength { get; set; }
 
-        public Passive(string title, int value, int time, int monthLength)
+        public Passive(string title, int value, int expirationDate, int monthLength)
         {
             Title = title;
             Value = value;
-            Time = time;
+            ExpirationDate = expirationDate;
             MonthLength = monthLength;
         }
     }

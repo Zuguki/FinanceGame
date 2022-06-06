@@ -11,6 +11,7 @@ namespace DefaultNamespace
         [SerializeField] private GameObject cellUI;
 
         private static List<Asset> _assetsForInfo;
+        private static List<Passive> _passivesForInfo;
 
         private TextMeshProUGUI _title;
         private TextMeshProUGUI _info;
@@ -18,6 +19,7 @@ namespace DefaultNamespace
         private TextMeshProUGUI _buttonText;
 
         private int _assetID;
+        private int _passiveID;
 
         private void Awake()
         {
@@ -31,11 +33,15 @@ namespace DefaultNamespace
         {
             SetPlayerStats();
             SetDoneAssets();
+            SetDonePassives();
             TryUpgradeMood();
             _assetID = 0;
+            _passiveID = 0;
 
             if (_assetsForInfo.Count > 0)
-                ShowUI(_assetID);
+                ShowAssetUI(_assetID);
+            else if (_passivesForInfo.Count > 0)
+                ShowPassiveUI(_passiveID);
             else
                 Success();
 
@@ -43,10 +49,17 @@ namespace DefaultNamespace
             _button.onClick.AddListener(Success);
         }
 
-        private void ShowUI(int assetID)
+        private void ShowPassiveUI(int passiveID)
         {
             _title.text = "Информация";
-            _info.text = $"Вы успешно завершили '{_assetsForInfo[assetID].Title}'";
+            _info.text = $"Вы успешно завершили испытание '{_passivesForInfo[passiveID].Title}'";
+            cellUI.SetActive(true);
+        }
+
+        private void ShowAssetUI(int assetID)
+        {
+            _title.text = "Информация";
+            _info.text = $"Вы успешно завершили испытание '{_assetsForInfo[assetID].Title}'";
             cellUI.SetActive(true);
         }
 
@@ -59,33 +72,47 @@ namespace DefaultNamespace
         private static void SetDoneAssets() =>
             _assetsForInfo = Player.Assets.Where(asset => asset.ExpirationDate == 0).ToList();
 
+        private static void SetDonePassives() =>
+            _passivesForInfo = Player.Liabilities.Where(passive => passive.ExpirationDate == 0).ToList();
+
         private static void SetPlayerStats()
         {
             Player.Cash += Player.CashFlow;
-            var list = new List<Asset>();
+            var assets = new List<Asset>();
+            var passives = new List<Passive>();
 
             foreach (var asset in Player.Assets)
             {
                 asset.ExpirationDate--;
-                list.Add(asset);
+                assets.Add(asset);
+            }
+
+            foreach (var passive in Player.Liabilities)
+            {
+                passive.ExpirationDate--;
+                passives.Add(passive);
             }
 
             Player.Assets = new List<Asset>();
-            Player.Assets = list.Select(asset => asset).ToList();
+            Player.Assets = assets.Select(asset => asset).ToList();
+
+            Player.Liabilities = new List<Passive>();
+            Player.Liabilities = passives.Select(passive => passive).ToList();
         }
 
         private void Success()
         {
-            if (++_assetID >= _assetsForInfo.Count)
+            if (_assetID >= _assetsForInfo.Count && _passiveID >= _passivesForInfo.Count)
             {
-                _assetID = 0;
                 cellUI.SetActive(false);
                 PlayerMove.CanMove = true;
                 CameraMovement.CanMove = true;
                 Player.NeedsUpdate = true;
             }
-            else
-                ShowUI(_assetID);
+            else if (++_assetID < _assetsForInfo.Count)
+                ShowAssetUI(_assetID);
+            else if (++_passiveID < _passivesForInfo.Count)
+                ShowPassiveUI(_passiveID);
         }
     }
 }

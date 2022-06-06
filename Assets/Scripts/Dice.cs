@@ -48,7 +48,6 @@ public class Dice : MonoBehaviour
 
         Steps++;
         IsThrows = true;
-        Debug.Log(Steps);
         _coroutineAllowed = true;
     }
 

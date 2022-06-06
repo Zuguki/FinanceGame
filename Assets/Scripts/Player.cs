@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     public static int FreeTime => TimePerMonth - (Incomes.Sum(inc => inc.Time)
                                                   + Expenses.Sum(exp => exp.Time)
-                                                  + Liabilities.Sum(pas => pas.Time) +
+                                                  + Liabilities.Sum(pas => pas.ExpirationDate) +
                                                   Assets.Sum(asset => asset.NeedsTime));
 
     public static int Mood
@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
     private void UpdateUIValues()
     {
         RemoveFinishedAssets();
+        RemoveFinishedPassives();
 
         UpdateValue(_cashText, Cash);
         UpdateValue(_cashFlowText, CashFlow);
@@ -93,6 +94,9 @@ public class Player : MonoBehaviour
 
         NeedsUpdate = false;
     }
+
+    private static void RemoveFinishedPassives() =>
+        Liabilities = Liabilities.Where(passive => passive.ExpirationDate != 0).ToList();
 
     private static void RemoveFinishedAssets() =>
         Assets = Assets.Where(asset => asset.ExpirationDate != 0).ToList();
