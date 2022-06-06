@@ -79,9 +79,10 @@ namespace DefaultNamespace
             if (++_assetID >= _assetsForInfo.Count)
             {
                 _assetID = 0;
-                Player.NeedsUpdate = true;
                 cellUI.SetActive(false);
                 PlayerMove.CanMove = true;
+                CameraMovement.CanMove = true;
+                Player.NeedsUpdate = true;
             }
             else
                 ShowUI(_assetID);

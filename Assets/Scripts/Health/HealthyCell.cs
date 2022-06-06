@@ -77,12 +77,14 @@ namespace DefaultNamespace
 
             cellUI.SetActive(false);
             Player.NeedsUpdate = true;
+            CameraMovement.CanMove = true;
         }
 
         private void Cancel()
         {
             cellUI.SetActive(false);
             Player.NeedsUpdate = true;
+            CameraMovement.CanMove = true;
         }
     }
 }

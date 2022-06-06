@@ -80,14 +80,15 @@ namespace DefaultNamespace
             if (_feast.IsLiabilities())
             {
                 // TODO: Сделать timeForMonth, monthLength
-                var passive = new Passive(_feast.Title(), _price, 1, 12);
+                var passive = new Passive(_feast.Title(), _price, 1, 4);
                 Player.Liabilities.Add(passive);
             }
             
             Player.Mood += rnd.Next(1, 2);
             Player.Cash -= _price;
             cellUI.SetActive(false);
-            Player.NeedsUpdate = true;
+            Player.NeedsUpdate = true; 
+            CameraMovement.CanMove = true;
         }
 
         private void Cancel()
@@ -97,6 +98,7 @@ namespace DefaultNamespace
             Player.Mood -= rnd.Next(1, 3);
             cellUI.SetActive(false);
             Player.NeedsUpdate = true;
+            CameraMovement.CanMove = true;
         }
     }
 }

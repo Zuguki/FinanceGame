@@ -10,7 +10,7 @@
 
         public int Price => 100_000;
         public int NeedsTime => 25;
-        public int Income => 50_000;
+        public int Income => 500_000;
         public Business BusinessInfo => Business.Low;
         public Realty RealtyInfo => Realty.None;
     }

@@ -42,6 +42,8 @@ namespace DefaultNamespace
         private void Success()
         {
             cellUI.SetActive(false);
+            
+            CameraMovement.CanMove = true;
         }
     }
 }

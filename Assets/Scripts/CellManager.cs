@@ -11,6 +11,7 @@ public class CellManager : MonoBehaviour
 
     private static void ShowCellDetails()
     {
+        CameraMovement.CanMove = false;
         PlayerMove.LastWaypoint.GetComponent<ICell>().ShowDetails();
     }
 }

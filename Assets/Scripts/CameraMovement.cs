@@ -1,8 +1,9 @@
-using System;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    public static bool CanMove = true;
+    
     [SerializeField] private Camera cam;
 
     [SerializeField]
@@ -28,6 +29,9 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!CanMove)
+            return;
+        
         PanCamera();
         Zoom();
     }

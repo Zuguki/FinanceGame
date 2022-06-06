@@ -166,7 +166,7 @@ namespace DefaultNamespace
                 Cancel();
                 return;
             }
-            // TODO: Проверить с отрицательными значениями
+            
             Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
                 currentItem.NeedsTime));
             Player.Cash -= currentItem.Price;
@@ -201,6 +201,7 @@ namespace DefaultNamespace
             _businessUI.SetActive(false);
             _realtyUI.SetActive(false);
             _choiceUI.SetActive(false);
+            CameraMovement.CanMove = true;
         }
     }
 }
