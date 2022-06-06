@@ -66,6 +66,8 @@ public class Player : MonoBehaviour
 
     private void UpdateUIValues()
     {
+        RemoveFinishedAssets();
+        
         _cashText.text = Cash.ToString();
         _cashFlowText.text = CashFlow.ToString();
         _incomeText.text = Incomes.Sum(inc => inc.Value).ToString();
@@ -77,4 +79,7 @@ public class Player : MonoBehaviour
 
         NeedsUpdate = false;
     }
+
+    private static void RemoveFinishedAssets() => 
+        Assets = Assets.Where(asset => asset.ExpirationDate != 0).ToList();
 }
