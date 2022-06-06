@@ -45,7 +45,7 @@ namespace DefaultNamespace
 
         private void ShowUI(int assetID)
         {
-            _title.text = "Info";
+            _title.text = "Информация";
             _info.text = $"Вы успешно завершили '{_assetsForInfo[assetID].Title}'";
             cellUI.SetActive(true);
         }
