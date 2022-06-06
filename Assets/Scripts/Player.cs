@@ -9,19 +9,19 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public static bool NeedsUpdate = true;
-    
+
     [SerializeField] private GameObject playerInfoUI;
-    
+
     private const int TimePerMonth = 100;
-    
+
     public static int Cash = 10000000;
     public static List<Income> Incomes = new();
     public static List<Expense> Expenses = new();
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
-    
-    public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => asset.IncomeValue) 
-                                  - (Expenses.Sum(exp => exp.Value) 
+
+    public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => asset.IncomeValue)
+                                  - (Expenses.Sum(exp => exp.Value)
                                      + Liabilities.Sum(pas => pas.Value));
 
     public static int FreeTime => TimePerMonth - (Incomes.Sum(inc => inc.Time)
@@ -43,13 +43,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private TextMeshProUGUI _cashText, _cashFlowText, _incomeText, _expensesText, _assetsText, _liabilitiesText,
-        _freeTimeText, _moodText;
+    private TextMeshProUGUI _cashText,
+        _cashFlowText,
+        _incomeText,
+        _expensesText,
+        _assetsText,
+        _liabilitiesText,
+        _freeTimeText,
+        _moodText;
 
     private static int _mood = 5;
 
     private const float EventTime = 2f;
-    
+
     private readonly Color _defaultColor = Color.black;
     private readonly Color _upgradeColor = Color.blue;
     private readonly Color _downgradeColor = Color.red;
@@ -88,9 +94,9 @@ public class Player : MonoBehaviour
         NeedsUpdate = false;
     }
 
-    private static void RemoveFinishedAssets() => 
+    private static void RemoveFinishedAssets() =>
         Assets = Assets.Where(asset => asset.ExpirationDate != 0).ToList();
-    
+
     private void UpdateValue(TMP_Text stat, int value)
     {
         var good = int.TryParse(stat.text, out var statValue);
