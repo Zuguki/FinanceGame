@@ -31,6 +31,7 @@ namespace DefaultNamespace
         {
             SetPlayerStats();
             SetDoneAssets();
+            TryUpgradeMood();
             _assetID = 0;
 
             if (_assetsForInfo.Count > 0)
@@ -44,16 +45,15 @@ namespace DefaultNamespace
 
         private void ShowUI(int assetID)
         {
-            TryUpgradeMood(_assetsForInfo[assetID]);
             _title.text = "Info";
-            _info.text = $"Вы успешно завершили курс '{_assetsForInfo[assetID].Title}'";
+            _info.text = $"Вы успешно завершили '{_assetsForInfo[assetID].Title}'";
             cellUI.SetActive(true);
         }
 
-        private static void TryUpgradeMood(Asset asset)
+        private static void TryUpgradeMood()
         {
-            if (asset.HealthValue > 0)
-                Player.Mood += Random.Range(0, 100) > 50 ? 1 : 0;
+            foreach (var _ in Player.Assets.Where(asset => asset.HealthValue > 0))
+                Player.Mood += Random.Range(0, 100) > 80 ? 1 : 0;
         }
 
         private static void SetDoneAssets() =>
