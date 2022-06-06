@@ -35,8 +35,8 @@ namespace DefaultNamespace
 
             if (_assetsForInfo.Count > 0)
                 ShowUI(_assetID);
-
-            cellUI.SetActive(true);
+            else
+                Success();
 
             _button.onClick.RemoveAllListeners();
             _button.onClick.AddListener(Success);
@@ -44,8 +44,16 @@ namespace DefaultNamespace
 
         private void ShowUI(int assetID)
         {
+            TryUpgradeMood(_assetsForInfo[assetID]);
             _title.text = "Info";
-            _info.text = $"Вы успешно завершили курс {_assetsForInfo[assetID].Title}";
+            _info.text = $"Вы успешно завершили курс '{_assetsForInfo[assetID].Title}'";
+            cellUI.SetActive(true);
+        }
+
+        private static void TryUpgradeMood(Asset asset)
+        {
+            if (asset.HealthValue > 0)
+                Player.Mood += Random.Range(0, 100) > 50 ? 1 : 0;
         }
 
         private static void SetDoneAssets() =>
