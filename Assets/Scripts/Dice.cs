@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -7,6 +8,8 @@ public class Dice : MonoBehaviour
 { 
     public static bool IsThrows;
     public static int Steps { get; private set; }
+
+    [SerializeField] private GameObject[] uIs;
 
     private bool _coroutineAllowed = true;
     private Sprite[] _diceSides;
@@ -33,6 +36,7 @@ public class Dice : MonoBehaviour
 
     private IEnumerator RollTheDice()
     {
+        HideUIs();
         _coroutineAllowed = false;
 
         for (var twist = 0; twist < TwistDice; twist++)
@@ -42,11 +46,15 @@ public class Dice : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        // TODO: turne back
         Steps++;
-        // Steps = 2;
         IsThrows = true;
         Debug.Log(Steps);
         _coroutineAllowed = true;
+    }
+
+    private void HideUIs()
+    {
+        foreach (var ui in uIs)
+            ui.SetActive(false);
     }
 }
