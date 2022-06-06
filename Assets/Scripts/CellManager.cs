@@ -5,15 +5,12 @@ public class CellManager : MonoBehaviour
 {
     private void Update()
     {
-        ShowCellDetails();
+        if (PlayerMove.InLastWaypoint)
+            ShowCellDetails();
     }
 
-    private void ShowCellDetails()
+    private static void ShowCellDetails()
     {
-        if (!PlayerMove.InLastWaypoint)
-            return;
-        
-        var cell = PlayerMove.LastWaypoint.GetComponent<ICell>();
-        cell.ShowDetails();
+        PlayerMove.LastWaypoint.GetComponent<ICell>().ShowDetails();
     }
 }
