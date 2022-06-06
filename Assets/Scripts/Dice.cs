@@ -43,8 +43,8 @@ public class Dice : MonoBehaviour
         }
 
         // TODO: turne back
-        // Steps++;
-        Steps = 2;
+        Steps++;
+        // Steps = 2;
         IsThrows = true;
         Debug.Log(Steps);
         _coroutineAllowed = true;

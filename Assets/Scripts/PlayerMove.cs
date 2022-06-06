@@ -1,9 +1,11 @@
+using DefaultNamespace;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
     public GameObject[] waypoints;
 
+    public static bool CanMove { get; set; } = true;
     public static int CurrentWaypoint { get; private set; }
     public static bool InLastWaypoint { get; private set; }
     public static GameObject LastWaypoint { get; private set; }
@@ -30,7 +32,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        if (Dice.IsThrows && _passedSteps < Dice.Steps)
+        if (Dice.IsThrows && _passedSteps < Dice.Steps && CanMove)
         {
             InLastWaypoint = false;
             CameraMovement.MoveToPlayer(gameObject, cam, mapSprite);
@@ -41,7 +43,13 @@ public class PlayerMove : MonoBehaviour
 
             if (transform.position != waypoints[CurrentWaypoint].transform.position)
                 return;
-            
+
+            if (waypoints[CurrentWaypoint].TryGetComponent(out InfoCell cell))
+            {
+                CanMove = false;
+                cell.ShowDetails();
+            }
+                
             gameObject.transform.rotation = SetRotation();
             CurrentWaypoint = (CurrentWaypoint + 1) % waypoints.Length;
             
@@ -50,7 +58,7 @@ public class PlayerMove : MonoBehaviour
             else
                 _passedSteps++;
         }
-        else
+        else if (CanMove)
         {
             InLastWaypoint = _passedSteps > 0;
             if (InLastWaypoint)

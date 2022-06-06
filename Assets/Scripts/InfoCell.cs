@@ -11,7 +11,7 @@ namespace DefaultNamespace
         [SerializeField] private GameObject cellUI;
 
         private static List<Asset> _assetsForInfo;
-        
+
         private TextMeshProUGUI _title;
         private TextMeshProUGUI _info;
         private Button _button;
@@ -25,8 +25,6 @@ namespace DefaultNamespace
             _info = cellUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             _button = cellUI.transform.GetChild(2).GetComponent<Button>();
             _buttonText = cellUI.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
-            
-            _button.onClick.AddListener(Success);
         }
 
         public void ShowDetails()
@@ -34,19 +32,14 @@ namespace DefaultNamespace
             SetPlayerStats();
             SetDoneAssets();
             _assetID = 0;
-            
-            if (_assetsForInfo.Count == 0)
-                ShowClearUI();
-            else
-                ShowUI(_assetID);
-            
-            cellUI.SetActive(true);
-        }
 
-        private void ShowClearUI()
-        {
-            _title.text = "Info";
-            _info.text = "В этом месяце нет каких либо событий";
+            if (_assetsForInfo.Count > 0)
+                ShowUI(_assetID);
+
+            cellUI.SetActive(true);
+
+            _button.onClick.RemoveAllListeners();
+            _button.onClick.AddListener(Success);
         }
 
         private void ShowUI(int assetID)
@@ -55,14 +48,14 @@ namespace DefaultNamespace
             _info.text = $"Вы успешно завершили курс {_assetsForInfo[assetID].Title}";
         }
 
-        private static void SetDoneAssets() => 
+        private static void SetDoneAssets() =>
             _assetsForInfo = Player.Assets.Where(asset => asset.ExpirationDate == 0).ToList();
 
         private static void SetPlayerStats()
         {
             Player.Cash += Player.CashFlow;
             var list = new List<Asset>();
-            
+
             foreach (var asset in Player.Assets)
             {
                 asset.ExpirationDate--;
@@ -80,6 +73,7 @@ namespace DefaultNamespace
                 _assetID = 0;
                 Player.NeedsUpdate = true;
                 cellUI.SetActive(false);
+                PlayerMove.CanMove = true;
             }
             else
                 ShowUI(_assetID);
