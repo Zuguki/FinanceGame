@@ -1,20 +1,23 @@
-﻿using System;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = System.Random;
 
 namespace DefaultNamespace
 {
     public class InfoCell : MonoBehaviour, ICell
     {
         [SerializeField] private GameObject cellUI;
+
+        private static List<Asset> _assetsForInfo;
         
         private TextMeshProUGUI _title;
         private TextMeshProUGUI _info;
         private Button _button;
         private TextMeshProUGUI _buttonText;
+
+        private int _assetID;
 
         private void Awake()
         {
@@ -28,26 +31,58 @@ namespace DefaultNamespace
 
         public void ShowDetails()
         {
-            _title.text = "Info";
-            _info.text = Random();
+            SetPlayerStats();
+            SetDoneAssets();
+            _assetID = 0;
+            
+            if (_assetsForInfo.Count == 0)
+                ShowClearUI();
+            else
+                ShowUI(_assetID);
             
             cellUI.SetActive(true);
         }
 
-        private void Success()
+        private void ShowClearUI()
         {
-            cellUI.SetActive(false);
+            _title.text = "Info";
+            _info.text = "В этом месяце нет каких либо событий";
         }
 
-        private string Random()
+        private void ShowUI(int assetID)
         {
-            var rnd = new Random();
-            var result = new StringBuilder();
-            
-            for (var index = 0; index < 5; index++)
-                result.Append(rnd.Next(0, 1000));
+            _title.text = "Info";
+            _info.text = $"Вы успешно завершили курс {_assetsForInfo[assetID].Title}";
+        }
 
-            return result.ToString();
+        private static void SetDoneAssets() => 
+            _assetsForInfo = Player.Assets.Where(asset => asset.ExpirationDate == 0).ToList();
+
+        private static void SetPlayerStats()
+        {
+            Player.Cash += Player.CashFlow;
+            var list = new List<Asset>();
+            
+            foreach (var asset in Player.Assets)
+            {
+                asset.ExpirationDate--;
+                list.Add(asset);
+            }
+
+            Player.Assets = new List<Asset>();
+            Player.Assets = list.Select(asset => asset).ToList();
+        }
+
+        private void Success()
+        {
+            if (++_assetID >= _assetsForInfo.Count)
+            {
+                _assetID = 0;
+                Player.NeedsUpdate = true;
+                cellUI.SetActive(false);
+            }
+            else
+                ShowUI(_assetID);
         }
     }
 }
