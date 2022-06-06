@@ -36,8 +36,6 @@ namespace DefaultNamespace
         
         public void ShowDetails()
         {
-            _title.text = "Выбери";
-            
             cellUI.SetActive(true);
         }
         
