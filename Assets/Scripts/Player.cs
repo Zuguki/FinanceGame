@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -46,6 +48,12 @@ public class Player : MonoBehaviour
 
     private static int _mood = 5;
 
+    private const float EventTime = 2f;
+    
+    private readonly Color _defaultColor = Color.black;
+    private readonly Color _upgradeColor = Color.blue;
+    private readonly Color _downgradeColor = Color.red;
+
     private void Awake()
     {
         _cashText = playerInfoUI.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -67,19 +75,40 @@ public class Player : MonoBehaviour
     private void UpdateUIValues()
     {
         RemoveFinishedAssets();
-        
-        _cashText.text = Cash.ToString();
-        _cashFlowText.text = CashFlow.ToString();
-        _incomeText.text = Incomes.Sum(inc => inc.Value).ToString();
-        _expensesText.text = Expenses.Sum(exp => exp.Value).ToString();
-        _assetsText.text = Assets.Sum(asset => asset.Price).ToString();
-        _liabilitiesText.text = Liabilities.Sum(pas => pas.Value).ToString();
-        _freeTimeText.text = FreeTime.ToString();
-        _moodText.text = Mood.ToString();
+
+        UpdateValue(_cashText, Cash);
+        UpdateValue(_cashFlowText, CashFlow);
+        UpdateValue(_incomeText, Incomes.Sum(inc => inc.Value));
+        UpdateValue(_expensesText, Expenses.Sum(exp => exp.Value));
+        UpdateValue(_assetsText, Assets.Sum(asset => asset.Price));
+        UpdateValue(_liabilitiesText, Liabilities.Sum(pas => pas.Value));
+        UpdateValue(_freeTimeText, FreeTime);
+        UpdateValue(_moodText, Mood);
 
         NeedsUpdate = false;
     }
 
     private static void RemoveFinishedAssets() => 
         Assets = Assets.Where(asset => asset.ExpirationDate != 0).ToList();
+    
+    private void UpdateValue(TMP_Text stat, int value)
+    {
+        var good = int.TryParse(stat.text, out var statValue);
+        if (!good || statValue == value)
+        {
+            stat.text = value.ToString();
+            return;
+        }
+
+        StartCoroutine(ChangeColor(int.Parse(stat.text) < value, stat));
+        stat.text = value.ToString();
+    }
+
+    private IEnumerator ChangeColor(bool isUpgrade, Graphic stat)
+    {
+        stat.color = isUpgrade ? _upgradeColor : _downgradeColor;
+
+        yield return new WaitForSeconds(EventTime);
+        stat.color = _defaultColor;
+    }
 }
