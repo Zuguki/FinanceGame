@@ -102,17 +102,17 @@ namespace DefaultNamespace
 
         private void Success()
         {
-            if (_assetID >= _assetsForInfo.Count && _passiveID >= _passivesForInfo.Count)
+            if (++_assetID < _assetsForInfo.Count)
+                ShowAssetUI(_assetID);
+            else if (++_passiveID < _passivesForInfo.Count)
+                ShowPassiveUI(_passiveID);
+            else
             {
                 cellUI.SetActive(false);
                 PlayerMove.CanMove = true;
                 CameraMovement.CanMove = true;
                 Player.NeedsUpdate = true;
             }
-            else if (++_assetID < _assetsForInfo.Count)
-                ShowAssetUI(_assetID);
-            else if (++_passiveID < _passivesForInfo.Count)
-                ShowPassiveUI(_passiveID);
         }
     }
 }
