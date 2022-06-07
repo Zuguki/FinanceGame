@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace.Seminars
+﻿namespace Science.Seminars
 {
     public class DefaultSeminar : IStudyCell
     {

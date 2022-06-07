@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Assets.Business
 {
     public class Pivovarnya : IAsset
     {
@@ -12,6 +12,6 @@
         public int NeedsTime => 25;
         public int Income => 500_000;
         public Business BusinessInfo => Business.Low;
-        public Realty RealtyInfo => Realty.None;
+        public Realty.Realty RealtyInfo => Realty.Realty.None;
     }
 }

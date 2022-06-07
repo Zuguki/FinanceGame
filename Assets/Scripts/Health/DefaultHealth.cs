@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Health
 {
     public class DefaultHealth : IHealthInfo
     {

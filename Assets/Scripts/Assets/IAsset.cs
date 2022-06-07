@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Assets
 {
     public interface IAsset
     {
@@ -12,8 +12,8 @@
         
         public int NeedsTime { get; }
         
-        public Business BusinessInfo { get; }
+        public Business.Business BusinessInfo { get; }
         
-        public Realty RealtyInfo { get; }
+        public Realty.Realty RealtyInfo { get; }
     }
 }

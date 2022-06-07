@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace.HeightEducation
+﻿namespace Science.HeightEducation
 {
     public class DefaultHeightEducation : IStudyCell
     {

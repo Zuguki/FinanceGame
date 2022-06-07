@@ -1,4 +1,4 @@
-using DefaultNamespace;
+using Main;
 using UnityEngine;
 
 public class CellManager : MonoBehaviour

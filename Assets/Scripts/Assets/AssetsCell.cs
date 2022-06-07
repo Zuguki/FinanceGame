@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Business;
+using Assets.Realty;
+using Main;
+using Science;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
+namespace Assets
 {
     public class AssetsCell : MonoBehaviour, ICell
     {
@@ -13,7 +17,6 @@ namespace DefaultNamespace
 
         private TextMeshProUGUI _assetsTitle;
         private Button _businessButton, _realtyButton, _cancelButton;
-        private TextMeshProUGUI _realty, _business, _cancel;
 
         private GameObject _businessUI;
         private Button _lowBusinessButton, _middleBusinessButton, _heightBusinessButton;
@@ -52,10 +55,6 @@ namespace DefaultNamespace
             _realtyUI = cellUI.transform.GetChild(5).gameObject;
             _choiceUI = cellUI.transform.GetChild(6).gameObject;
 
-            _realty = _realtyButton.GetComponentInChildren<TextMeshProUGUI>();
-            _business = _businessButton.GetComponentInChildren<TextMeshProUGUI>();
-            _cancel = _cancelButton.GetComponentInChildren<TextMeshProUGUI>();
-
             _realtyButton.onClick.RemoveAllListeners();
             _realtyButton.onClick.AddListener(ShowRealtyUI);
             
@@ -74,13 +73,13 @@ namespace DefaultNamespace
             _backButton = _businessUI.transform.GetChild(4).GetComponent<Button>();
 
             _lowBusinessButton.onClick.RemoveAllListeners();
-            _lowBusinessButton.onClick.AddListener(() => ShowChoice(Business.Low));
+            _lowBusinessButton.onClick.AddListener(() => ShowChoice(Business.Business.Low));
 
             _middleBusinessButton.onClick.RemoveAllListeners();
-            _middleBusinessButton.onClick.AddListener(() => ShowChoice(Business.Middle));
+            _middleBusinessButton.onClick.AddListener(() => ShowChoice(Business.Business.Middle));
 
             _heightBusinessButton.onClick.RemoveAllListeners();
-            _heightBusinessButton.onClick.AddListener(() => ShowChoice(Business.Height));
+            _heightBusinessButton.onClick.AddListener(() => ShowChoice(Business.Business.Height));
 
             _backButton.onClick.RemoveAllListeners();
             _backButton.onClick.AddListener(Back);
@@ -94,13 +93,13 @@ namespace DefaultNamespace
             _backButton = _realtyUI.transform.GetChild(4).GetComponent<Button>();
             
             _lowRealtyButton.onClick.RemoveAllListeners();
-            _lowRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Low));
+            _lowRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Realty.Low));
             
             _middleRealtyButton.onClick.RemoveAllListeners();
-            _middleRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Middle));
+            _middleRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Realty.Middle));
             
             _heightRealtyButton.onClick.RemoveAllListeners();
-            _heightRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Height));
+            _heightRealtyButton.onClick.AddListener(() => ShowChoice(realty: Realty.Realty.Height));
             
             _backButton.onClick.RemoveAllListeners();
             _backButton.onClick.AddListener(Back);
@@ -121,11 +120,12 @@ namespace DefaultNamespace
             _backButton.onClick.AddListener(Back);
         }
 
-        private void ShowChoice(Business business = Business.None, Realty realty = Realty.None)
+        private void ShowChoice(Business.Business business = Business.Business.None,
+            Realty.Realty realty = Realty.Realty.None)
         {
             _choiceUI.SetActive(true);
 
-            var currentList = business is not Business.None
+            var currentList = business is not Business.Business.None
                 ? _assetInfos.Where(bus => bus.BusinessInfo == business
                                               && Player.Assets.All(asset => asset.Title != bus.Title))
                     .ToList()
@@ -133,7 +133,7 @@ namespace DefaultNamespace
                         rea.RealtyInfo == realty && Player.Assets.All(asset => asset.Title != rea.Title))
                     .ToList();
 
-            var asset = business is not Business.None
+            var asset = business is not Business.Business.None
                 ? GetItemByAssets(currentList)
                 : GetItemByAssets(currentList, false);
 

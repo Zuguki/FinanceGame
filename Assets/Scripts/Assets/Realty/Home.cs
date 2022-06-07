@@ -1,6 +1,4 @@
-﻿using DefaultNamespace.Feast;
-
-namespace DefaultNamespace
+﻿namespace Assets.Realty
 {
     public class Home : IAsset
     {
@@ -10,6 +8,6 @@ namespace DefaultNamespace
         public int NeedsTime => 0;
         public int Income => 15_000;
         public Realty RealtyInfo => Realty.Low;
-        public Business BusinessInfo => Business.None;
+        public Business.Business BusinessInfo => Business.Business.None;
     }
 }

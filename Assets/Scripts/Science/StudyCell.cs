@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DefaultNamespace.HeightEducation;
-using DefaultNamespace.Seminars;
+using Main;
+using Science.HeightEducation;
+using Science.Seminars;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DefaultNamespace
+namespace Science
 {
     public class StudyCell : MonoBehaviour, ICell
     {

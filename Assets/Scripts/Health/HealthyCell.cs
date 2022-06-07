@@ -1,11 +1,12 @@
 ﻿using System.Linq;
-using System.Text;
+using Main;
+using Science;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
 
-namespace DefaultNamespace
+namespace Health
 {
     public class HealthyCell : MonoBehaviour, ICell
     {
@@ -17,9 +18,6 @@ namespace DefaultNamespace
         private Button _successButton;
         private Button _cancelButton;
         
-        private TextMeshProUGUI _successButtonText;
-        private TextMeshProUGUI _cancelButtonText;
-
         private readonly IHealthInfo[] _healthInfos = {new Sport(), new GoodFood()};
         private IHealthInfo _healthInfo;
         private int _price;
@@ -30,10 +28,8 @@ namespace DefaultNamespace
             _info = cellUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             
             _successButton = cellUI.transform.GetChild(2).GetComponent<Button>();
-            _successButtonText = cellUI.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
 
             _cancelButton = cellUI.transform.GetChild(3).GetComponent<Button>();
-            _cancelButtonText = cellUI.transform.GetChild(3).GetComponentInChildren<TextMeshProUGUI>();
         }
         
         public void ShowDetails()

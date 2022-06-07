@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Assets.Realty
 {
     public enum Realty
     {

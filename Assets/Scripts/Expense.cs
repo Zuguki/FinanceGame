@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Main
 {
     public class Expense
     {

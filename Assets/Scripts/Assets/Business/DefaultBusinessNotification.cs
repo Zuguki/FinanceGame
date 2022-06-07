@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Assets.Business
 {
     public class DefaultBusinessNotification : IAsset
     {
@@ -8,6 +8,6 @@
         public int NeedsTime { get; }
         public int Income { get; }
         public Business BusinessInfo { get; }
-        public Realty RealtyInfo { get; }
+        public Realty.Realty RealtyInfo { get; }
     }
 }

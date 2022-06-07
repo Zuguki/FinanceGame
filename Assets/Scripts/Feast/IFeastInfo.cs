@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace.Feast
+﻿namespace Feast
 {
     public interface IFeastInfo
     {

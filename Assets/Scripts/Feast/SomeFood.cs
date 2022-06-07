@@ -1,6 +1,4 @@
-﻿using DefaultNamespace.Feast;
-
-namespace Feast
+﻿namespace Feast
 {
     public class SomeFood : IFeastInfo
     {

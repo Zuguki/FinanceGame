@@ -1,4 +1,4 @@
-using DefaultNamespace;
+using Science;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour

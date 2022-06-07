@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Science
 {
     public enum StudyTrack
     {

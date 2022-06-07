@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Assets.Business
 {
     public enum Business
     {
