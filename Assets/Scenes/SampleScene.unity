@@ -2882,6 +2882,42 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 28
       objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6347f916954d1cc4e95259577686d1f5, type: 3}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392531110935260975, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8658018757032993680, guid: e8ad3ed4e9258004993d402a2aca341a, type: 3}
       propertyPath: m_Name
       value: HealthUI
