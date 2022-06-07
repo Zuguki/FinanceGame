@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace.HeightEducation;
+using DefaultNamespace.Seminars;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +18,11 @@ namespace DefaultNamespace
         private Button _successButton, _cancelButton, _backButton;
         private TextMeshProUGUI _title, _description;
 
-        private readonly IStudyCell _defaultHeightEducation;
+        private readonly IStudyCell _defaultHeightEducation = new DefaultHeightEducation();
 
         private readonly IStudyCell[] _cells = { };
         
-        private readonly IStudyCell _defaultSeminar;
+        private readonly IStudyCell _defaultSeminar = new DefaultSeminar();
 
         private void Awake()
         {
@@ -89,7 +91,8 @@ namespace DefaultNamespace
         
         private void Success(IStudyCell asset)
         {
-            if (asset == _defaultHeightEducation && asset == _defaultSeminar)
+            // TODO: Добавить кредиты
+            if (Player.Cash < asset.Price || asset == _defaultHeightEducation || asset == _defaultSeminar)
             {
                 Cancel();
                 return;
