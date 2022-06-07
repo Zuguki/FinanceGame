@@ -12,7 +12,7 @@ namespace Science
     public class StudyCell : MonoBehaviour, ICell
     {
         [SerializeField] private GameObject cellUI;
-        
+
         private Button _higherEducationButton, _seminarButton, _hideButton;
 
         private GameObject _eventUI;
@@ -21,8 +21,8 @@ namespace Science
 
         private readonly IStudyCell _defaultHeightEducation = new DefaultHeightEducation();
 
-        private readonly IStudyCell[] _cells = { };
-        
+        private readonly IStudyCell[] _cells = {new Managment()};
+
         private readonly IStudyCell _defaultSeminar = new DefaultSeminar();
 
         private void Awake()
@@ -62,16 +62,18 @@ namespace Science
 
         private void ShowChoice(StudyTrack studyTrack)
         {
-            var listOfTracks = _cells.Where(cell => cell.Track == studyTrack 
+            var listOfTracks = _cells.Where(cell => cell.Track == studyTrack
                                                     && Player.Assets.All(asset => asset.Title != cell.Title))
                 .ToList();
 
             var asset = GetAssetByTrack(studyTrack, listOfTracks);
-            
+
             _eventUI.SetActive(true);
             _title.text = asset.Title;
             _description.text = asset.Description;
-            
+
+            RemoveListenersFromButtons();
+            SetMethodsToButtons();
             _successButton.onClick.AddListener(() => Success(asset));
             _cancelButton.onClick.AddListener(Cancel);
             _backButton.onClick.AddListener(Cancel);
@@ -89,7 +91,7 @@ namespace Science
         {
             cellUI.SetActive(true);
         }
-        
+
         private void Success(IStudyCell asset)
         {
             // TODO: Добавить кредиты
@@ -99,9 +101,11 @@ namespace Science
                 return;
             }
 
+            Player.Cash -= asset.Price;
             Player.Assets.Add(
                 new Asset(asset.Title, asset.Price, 0, -1, asset.ExpirationDate, asset.NeedsTime));
-            
+
+            Player.NeedsUpdate = true;
             Cancel();
         }
 
