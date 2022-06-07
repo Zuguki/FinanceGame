@@ -7,5 +7,6 @@
         public int Price { get; }
         public int ExpirationDate { get; }
         public int NeedsTime { get; }
+        public StudyTrack Track {get;}
     }
 }
