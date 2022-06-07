@@ -25,18 +25,19 @@ public class Dice : MonoBehaviour
         _renderer.sprite = _diceSides[0];
         _button = GetComponent<Button>();
         
+        _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(Roll);
     }
 
     private void Roll()
     {
+        HideUIs();
         if (_coroutineAllowed)
             StartCoroutine(nameof(RollTheDice));
     }
 
     private IEnumerator RollTheDice()
     {
-        HideUIs();
         _coroutineAllowed = false;
 
         for (var twist = 0; twist < TwistDice; twist++)
