@@ -47,6 +47,7 @@ public class PlayerMove : MonoBehaviour
             if (waypoints[CurrentWaypoint].TryGetComponent(out InfoCell cell))
             {
                 CanMove = false;
+                CameraMovement.CanMove = false;
                 cell.ShowDetails();
             }
                 
