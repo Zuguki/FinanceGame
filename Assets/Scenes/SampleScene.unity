@@ -1848,6 +1848,10 @@ PrefabInstance:
       propertyPath: cellUI
       value: 
       objectReference: {fileID: 1896960017}
+    - target: {fileID: 177263362330204193, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.7
+      objectReference: {fileID: 0}
     - target: {fileID: 195304580013155779, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -1924,6 +1928,10 @@ PrefabInstance:
       propertyPath: cellUI
       value: 
       objectReference: {fileID: 2024175614}
+    - target: {fileID: 1723488427540401509, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.7
+      objectReference: {fileID: 0}
     - target: {fileID: 1750740545832088667, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -2044,6 +2052,10 @@ PrefabInstance:
       propertyPath: cellUI
       value: 
       objectReference: {fileID: 1896960017}
+    - target: {fileID: 2074573190452836654, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2180055654089854400, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -2224,6 +2236,10 @@ PrefabInstance:
       propertyPath: cellUI
       value: 
       objectReference: {fileID: 2024175614}
+    - target: {fileID: 6872262543824927724, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.7
+      objectReference: {fileID: 0}
     - target: {fileID: 7186284536567552119, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
