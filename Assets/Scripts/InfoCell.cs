@@ -16,7 +16,6 @@ namespace DefaultNamespace
         private TextMeshProUGUI _title;
         private TextMeshProUGUI _info;
         private Button _button;
-        private TextMeshProUGUI _buttonText;
 
         private int _assetID;
         private int _passiveID;
@@ -26,7 +25,6 @@ namespace DefaultNamespace
             _title = cellUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             _info = cellUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             _button = cellUI.transform.GetChild(2).GetComponent<Button>();
-            _buttonText = cellUI.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
         }
 
         public void ShowDetails()
