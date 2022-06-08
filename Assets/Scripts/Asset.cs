@@ -8,6 +8,7 @@
         public int HealthValue { get; }
         public int ExpirationDate { get; set; }
         public int NeedsTime { get; }
+        public float RatioOfUpgrade { get; set; }
 
         public Asset(string title, int price, int incomeValue, int healthValue, int expirationDate, int needsTime)
         {
@@ -17,6 +18,8 @@
             HealthValue = healthValue;
             ExpirationDate = expirationDate;
             NeedsTime = needsTime;
+
+            RatioOfUpgrade = 1;
         }
     }
 }

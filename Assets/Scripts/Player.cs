@@ -22,14 +22,17 @@ public class Player : MonoBehaviour
     public static List<Asset> Assets = new();
     public static List<Education> Educations = new();
 
-    public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => asset.IncomeValue)
+    public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => 
+                                      (int) (asset.IncomeValue * asset.RatioOfUpgrade))
                                   - (Expenses.Sum(exp => exp.Value)
                                      + Liabilities.Sum(pas => pas.Value));
 
     public static int FreeTime => TimePerMonth - (Incomes.Sum(inc => inc.Time)
                                                   + Expenses.Sum(exp => exp.Time)
-                                                  + Liabilities.Sum(pas => pas.ExpirationDate) +
-                                                  Assets.Sum(asset => asset.NeedsTime));
+                                                  + Liabilities.Sum(pas => pas.ExpirationDate)
+                                                  + Assets.Sum(asset => asset.NeedsTime)
+                                                  + Educations.Where(educ => educ.ExpirationDate > 0)
+                                                      .Sum(educ => educ.NeedsTime));
 
     public static int Mood
     {
@@ -84,6 +87,7 @@ public class Player : MonoBehaviour
     {
         RemoveFinishedAssets();
         RemoveFinishedPassives();
+        UpdateAssetsRatioValue();
 
         UpdateValue(_cashText, Cash);
         UpdateValue(_cashFlowText, CashFlow);
@@ -122,5 +126,17 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(EventTime);
         stat.color = _defaultColor;
+    }
+
+    private static void UpdateAssetsRatioValue()
+    {
+        if (Educations.Count == 0)
+            return;
+        
+        var educationRatio = 1 + Educations.Where(educ => educ.ExpirationDate <= 0)
+            .Sum(educ => educ.RatioOfUpgrade) * 0.01f;
+
+        foreach (var asset in Assets.Where(asset => asset.RatioOfUpgrade < educationRatio))
+            asset.RatioOfUpgrade = educationRatio;
     }
 }

@@ -74,6 +74,7 @@ namespace Science
         {
             _title.text = "Информация";
             _info.text = $"Вы успешно завершили трек обучения: '{_educationsForInfo[educationID].Title}'";
+            cellUI.SetActive(true);
         }
 
         private static void TryUpgradeMood()
@@ -110,7 +111,7 @@ namespace Science
                 passives.Add(passive);
             }
 
-            foreach (var education in educations)
+            foreach (var education in Player.Educations)
             {
                 education.ExpirationDate--;
                 educations.Add(education);

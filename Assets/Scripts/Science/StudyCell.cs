@@ -63,7 +63,7 @@ namespace Science
         private void ShowChoice(StudyTrack studyTrack)
         {
             var listOfTracks = _cells.Where(cell => cell.Track == studyTrack
-                                                    && Player.Assets.All(asset => asset.Title != cell.Title))
+                                                    && Player.Educations.All(educ => educ.Title != cell.Title))
                 .ToList();
 
             var asset = GetAssetByTrack(studyTrack, listOfTracks);
@@ -87,10 +87,7 @@ namespace Science
             return listOfTracks[Random.Range(0, listOfTracks.Count)];
         }
 
-        public void ShowDetails()
-        {
-            cellUI.SetActive(true);
-        }
+        public void ShowDetails() => cellUI.SetActive(true);
 
         private void Success(IStudyCell asset)
         {
