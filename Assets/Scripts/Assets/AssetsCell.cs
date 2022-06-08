@@ -35,6 +35,7 @@ namespace Assets
         private readonly IAsset[] _assetInfos = { new Pivovarnya(), new Home() };
 
         private readonly IAsset _defaultRealty = new DefaultRealtyNotification();
+        private GameObject _pictures;
 
         private void Awake()
         {
@@ -54,6 +55,7 @@ namespace Assets
             _businessUI = cellUI.transform.GetChild(4).gameObject;
             _realtyUI = cellUI.transform.GetChild(5).gameObject;
             _choiceUI = cellUI.transform.GetChild(6).gameObject;
+            _pictures = cellUI.transform.GetChild(7).gameObject;
 
             _realtyButton.onClick.RemoveAllListeners();
             _realtyButton.onClick.AddListener(ShowRealtyUI);
@@ -180,6 +182,7 @@ namespace Assets
             _businessUI.SetActive(false);
             _realtyUI.SetActive(false);
             _choiceUI.SetActive(false);
+            _pictures.SetActive(true);
         }
 
         public void ShowDetails()
@@ -187,17 +190,25 @@ namespace Assets
             _assetsTitle.text = "Предложенные варианты:";
 
             cellUI.SetActive(true);
+            _pictures.SetActive(true);
         }
 
-        private void ShowRealtyUI() => 
+        private void ShowRealtyUI()
+        {
+            _pictures.SetActive(false);
             _realtyUI.SetActive(true);
-        
-        private void ShowBusinessUI() => 
+        }
+
+        private void ShowBusinessUI()
+        {
+            _pictures.SetActive(false);
             _businessUI.SetActive(true);
+        }
         
         private void Cancel()
         {
             cellUI.SetActive(false);
+            _pictures.SetActive(true);
             _businessUI.SetActive(false);
             _realtyUI.SetActive(false);
             _choiceUI.SetActive(false);
