@@ -22,13 +22,11 @@ public class Player : MonoBehaviour
     public static List<Asset> Assets = new();
     public static List<Education> Educations = new();
 
-    public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => 
-                                      (int) (asset.IncomeValue * asset.RatioOfUpgrade))
+    public static int CashFlow => Incomes.Sum(inc => inc.Value)
                                   - (Expenses.Sum(exp => exp.Value)
                                      + Liabilities.Sum(pas => pas.Value));
 
-    public static int FreeTime => TimePerMonth - (Incomes.Sum(inc => inc.Time)
-                                                  + Expenses.Sum(exp => exp.Time)
+    public static int FreeTime => TimePerMonth - (+ Expenses.Sum(exp => exp.Time)
                                                   + Liabilities.Sum(pas => pas.ExpirationDate)
                                                   + Assets.Sum(asset => asset.NeedsTime)
                                                   + Educations.Where(educ => educ.ExpirationDate > 0)
@@ -136,7 +134,7 @@ public class Player : MonoBehaviour
         var educationRatio = 1 + Educations.Where(educ => educ.ExpirationDate <= 0)
             .Sum(educ => educ.RatioOfUpgrade) * 0.01f;
 
-        foreach (var asset in Assets.Where(asset => asset.RatioOfUpgrade < educationRatio))
-            asset.RatioOfUpgrade = educationRatio;
+        foreach (var income in Incomes.Where(income => income.RatioOfUpgrade < educationRatio))
+            income.RatioOfUpgrade = educationRatio;
     }
 }

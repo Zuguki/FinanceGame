@@ -6,7 +6,7 @@
         public string Description { get; }
         public int Price { get; }
         public int ExpirationDate { get; set; }
-        public int NeedsTime { get; set; }
+        public int NeedsTime { get; }
         public int RatioOfUpgrade { get; }
         public StudyTrack Track { get; }
 

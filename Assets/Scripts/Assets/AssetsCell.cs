@@ -169,6 +169,7 @@ namespace Assets
             
             Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
                 currentItem.NeedsTime));
+            Player.Incomes.Add(new Income(currentItem.Title, currentItem.Details, currentItem.Income));
             Player.Cash -= currentItem.Price;
             Player.NeedsUpdate = true;
             
@@ -185,7 +186,6 @@ namespace Assets
         public void ShowDetails()
         {
             _assetsTitle.text = "Предложенные варианты:";
-
             cellUI.SetActive(true);
         }
 
