@@ -13,6 +13,7 @@ namespace Science
 
         private static List<Asset> _assetsForInfo;
         private static List<Passive> _passivesForInfo;
+        private static List<Education> _educationsForInfo;
 
         private TextMeshProUGUI _title;
         private TextMeshProUGUI _info;
@@ -20,6 +21,7 @@ namespace Science
 
         private int _assetID;
         private int _passiveID;
+        private int _educationID;
 
         private void Awake()
         {
@@ -33,14 +35,19 @@ namespace Science
             SetPlayerStats();
             SetDoneAssets();
             SetDonePassives();
+            SetDoneEducations();
             TryUpgradeMood();
+            
             _assetID = 0;
             _passiveID = 0;
+            _educationID = 0;
 
             if (_assetsForInfo.Count > 0)
                 ShowAssetUI(_assetID);
             else if (_passivesForInfo.Count > 0)
                 ShowPassiveUI(_passiveID);
+            else if (_educationsForInfo.Count > 0)
+                ShowEducationUI(_educationID);
             else
                 Success();
 
@@ -51,15 +58,22 @@ namespace Science
         private void ShowPassiveUI(int passiveID)
         {
             _title.text = "Информация";
-            _info.text = $"Вы успешно завершили испытание '{_passivesForInfo[passiveID].Title}'";
+            _info.text = $"Вы успешно завершили испытание: '{_passivesForInfo[passiveID].Title}'\n\n" +
+                         $"Теперь вам не придется платить: {_passivesForInfo[passiveID].Value}р.";
             cellUI.SetActive(true);
         }
 
         private void ShowAssetUI(int assetID)
         {
             _title.text = "Информация";
-            _info.text = $"Вы успешно завершили испытание '{_assetsForInfo[assetID].Title}'";
+            _info.text = $"Вы успешно завершили испытание: '{_assetsForInfo[assetID].Title}'";
             cellUI.SetActive(true);
+        }
+
+        private void ShowEducationUI(int educationID)
+        {
+            _title.text = "Информация";
+            _info.text = $"Вы успешно завершили трек обучения: '{_educationsForInfo[educationID].Title}'";
         }
 
         private static void TryUpgradeMood()
@@ -74,11 +88,15 @@ namespace Science
         private static void SetDonePassives() =>
             _passivesForInfo = Player.Liabilities.Where(passive => passive.ExpirationDate == 0).ToList();
 
+        private static void SetDoneEducations() =>
+            _educationsForInfo = Player.Educations.Where(educ => educ.ExpirationDate == 0).ToList();
+
         private static void SetPlayerStats()
         {
             Player.Cash += Player.CashFlow;
             var assets = new List<Asset>();
             var passives = new List<Passive>();
+            var educations = new List<Education>();
 
             foreach (var asset in Player.Assets)
             {
@@ -92,11 +110,20 @@ namespace Science
                 passives.Add(passive);
             }
 
+            foreach (var education in educations)
+            {
+                education.ExpirationDate--;
+                educations.Add(education);
+            }
+
             Player.Assets = new List<Asset>();
             Player.Assets = assets.Select(asset => asset).ToList();
 
             Player.Liabilities = new List<Passive>();
             Player.Liabilities = passives.Select(passive => passive).ToList();
+
+            Player.Educations = new List<Education>();
+            Player.Educations = educations.Select(educ => educ).ToList();
         }
 
         private void Success()
@@ -105,6 +132,8 @@ namespace Science
                 ShowAssetUI(_assetID);
             else if (++_passiveID < _passivesForInfo.Count)
                 ShowPassiveUI(_passiveID);
+            else if (++_educationID < _educationsForInfo.Count)
+                ShowEducationUI(_educationID);
             else
             {
                 cellUI.SetActive(false);

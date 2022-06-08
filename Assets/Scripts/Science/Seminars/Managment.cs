@@ -7,7 +7,8 @@
         public string Description => $"Вы можете изучить основы менеджмента, для этого вам потребуется:\n\n" +
                                      $"{ExpirationDate} месяцев\n" +
                                      $"{NeedsTime} часов свободного времени\n" +
-                                     $"{Price} руб";
+                                     $"{Price} руб\n" +
+                                     $"Доход от бизнесов увеличится на: {RatioOfUpgrade}%";
 
         public int Price => 100_000;
         public int ExpirationDate => 5;
