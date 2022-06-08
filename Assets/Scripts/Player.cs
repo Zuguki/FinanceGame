@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public static List<Expense> Expenses = new();
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
+    public static List<Education> Educations = new();
 
     public static int CashFlow => Incomes.Sum(inc => inc.Value) + Assets.Sum(asset => asset.IncomeValue)
                                   - (Expenses.Sum(exp => exp.Value)

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -30,8 +31,7 @@ public class Dice : MonoBehaviour
 
     private void Roll()
     {
-        HideUIs();
-        if (_coroutineAllowed)
+        if (_coroutineAllowed && uIs.All(ui => !ui.activeSelf))
             StartCoroutine(nameof(RollTheDice));
     }
 
@@ -49,11 +49,5 @@ public class Dice : MonoBehaviour
         Steps++;
         IsThrows = true;
         _coroutineAllowed = true;
-    }
-
-    private void HideUIs()
-    {
-        foreach (var ui in uIs)
-            ui.SetActive(false);
     }
 }
