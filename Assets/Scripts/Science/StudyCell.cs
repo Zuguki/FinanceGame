@@ -31,7 +31,7 @@ namespace Science
             _seminarButton = cellUI.transform.GetChild(2).GetComponent<Button>();
             _hideButton = cellUI.transform.GetChild(3).GetComponent<Button>();
 
-            _eventUI = cellUI.transform.GetChild(4).gameObject;
+            _eventUI = cellUI.transform.GetChild(5).gameObject;
             _title = _eventUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             _description = _eventUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
