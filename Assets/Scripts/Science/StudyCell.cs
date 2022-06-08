@@ -81,7 +81,8 @@ namespace Science
 
         private IStudyCell GetAssetByTrack(StudyTrack studyTrack, IReadOnlyList<IStudyCell> listOfTracks)
         {
-            if (listOfTracks.Count == 0)
+            if (listOfTracks.Count == 0 || Player.Educations.Where(educ => educ.Track == listOfTracks[0].Track)
+                    .Any(educ => educ.ExpirationDate > 0))
                 return studyTrack is StudyTrack.HigherEducation ? _defaultHeightEducation : _defaultSeminar;
 
             return listOfTracks[Random.Range(0, listOfTracks.Count)];
