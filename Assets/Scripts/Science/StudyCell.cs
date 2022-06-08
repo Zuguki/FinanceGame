@@ -102,8 +102,9 @@ namespace Science
             }
 
             Player.Cash -= asset.Price;
-            Player.Assets.Add(
-                new Asset(asset.Title, asset.Price, 0, -1, asset.ExpirationDate, asset.NeedsTime));
+            Player.Educations.Add(
+                new Education(asset.Title, asset.Description, asset.Price, asset.ExpirationDate,
+                    asset.NeedsTime, asset.RatioOfUpgrade, asset.Track));
 
             Player.NeedsUpdate = true;
             Cancel();

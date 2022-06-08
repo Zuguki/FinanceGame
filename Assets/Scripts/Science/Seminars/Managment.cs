@@ -12,6 +12,7 @@
         public int Price => 100_000;
         public int ExpirationDate => 5;
         public int NeedsTime => 15;
+        public int RatioOfUpgrade => 15;
         public StudyTrack Track => StudyTrack.Seminar;
     }
 }
