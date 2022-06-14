@@ -402,7 +402,7 @@ MonoBehaviour:
   - {fileID: 610310013}
   - {fileID: 116517639}
   - {fileID: 1671398546}
-  - {fileID: 1203081534}
+  - {fileID: 0}
   - {fileID: 1116477419}
   - {fileID: 500111502}
   - {fileID: 651185113}
@@ -861,11 +861,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5689768908616029179, guid: 242a30c941040474f840e45993ee20a7, type: 3}
   m_PrefabInstance: {fileID: 1829227110447881701}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1203081534 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1829227111533448411, guid: 242a30c941040474f840e45993ee20a7, type: 3}
-  m_PrefabInstance: {fileID: 1829227110447881701}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1234254377 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4917245574231847229, guid: 242a30c941040474f840e45993ee20a7, type: 3}
@@ -1040,7 +1035,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 714d0814960461f43940fb6a06cac9e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 629aad7ff3833f64eaf89cc63e8decee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1694,7 +1689,15 @@ PrefabInstance:
     - target: {fileID: 256715143480191787, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
-      objectReference: {fileID: 371317619}
+      objectReference: {fileID: 1175093162405340183}
+    - target: {fileID: 313000651076074298, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 313000651076074298, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Name
+      value: Waypoint (F) (16/)
+      objectReference: {fileID: 0}
     - target: {fileID: 365594718357636066, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -1711,6 +1714,22 @@ PrefabInstance:
       propertyPath: cellUI
       value: 
       objectReference: {fileID: 1896960017}
+    - target: {fileID: 755975167044418942, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 755975167044418942, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Name
+      value: Waypoint (F) (16/)
+      objectReference: {fileID: 0}
+    - target: {fileID: 773753137345680715, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 773753137345680715, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Name
+      value: Waypoint (E) (7/)
+      objectReference: {fileID: 0}
     - target: {fileID: 777045800262560332, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -1850,7 +1869,15 @@ PrefabInstance:
     - target: {fileID: 1829227111533448357, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
-      objectReference: {fileID: 1070885559}
+      objectReference: {fileID: 1175093162405340183}
+    - target: {fileID: 1829227111533448410, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829227111533448411, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Name
+      value: Waypoint (E) (2/)
+      objectReference: {fileID: 0}
     - target: {fileID: 1829227111675937621, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -1922,7 +1949,15 @@ PrefabInstance:
     - target: {fileID: 2653923507431167874, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
-      objectReference: {fileID: 371317619}
+      objectReference: {fileID: 1175093162405340183}
+    - target: {fileID: 2744879970984518311, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2744879970984518311, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Name
+      value: Waypoint (F) (13/)
+      objectReference: {fileID: 0}
     - target: {fileID: 2814267864736062943, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -1931,6 +1966,14 @@ PrefabInstance:
       propertyPath: cellUI
       value: 
       objectReference: {fileID: 1070885559}
+    - target: {fileID: 3120733692204979375, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 3120733692204979375, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Name
+      value: Waypoint (F) (22/)
+      objectReference: {fileID: 0}
     - target: {fileID: 3139262603875958013, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -1990,7 +2033,7 @@ PrefabInstance:
     - target: {fileID: 4659244049257773472, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
-      objectReference: {fileID: 1947940536182047348}
+      objectReference: {fileID: 1175093162405340183}
     - target: {fileID: 4714209242321842275, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -2034,7 +2077,7 @@ PrefabInstance:
     - target: {fileID: 5869262871072537923, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
-      objectReference: {fileID: 371317619}
+      objectReference: {fileID: 1175093162405340183}
     - target: {fileID: 5888501408549025810, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -2062,11 +2105,11 @@ PrefabInstance:
     - target: {fileID: 6579688854975736333, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
-      objectReference: {fileID: 1947940536182047348}
+      objectReference: {fileID: 1175093162405340183}
     - target: {fileID: 6588873621801937077, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
-      objectReference: {fileID: 371317619}
+      objectReference: {fileID: 1175093162405340183}
     - target: {fileID: 6842358305966723458, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
@@ -2119,6 +2162,14 @@ PrefabInstance:
       propertyPath: cellUI
       value: 
       objectReference: {fileID: 1175093162405340183}
+    - target: {fileID: 8970562784347688950, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 8970562784347688950, guid: 242a30c941040474f840e45993ee20a7, type: 3}
+      propertyPath: m_Name
+      value: Waypoint (F) (10/)
+      objectReference: {fileID: 0}
     - target: {fileID: 8984287762465651408, guid: 242a30c941040474f840e45993ee20a7, type: 3}
       propertyPath: cellUI
       value: 
