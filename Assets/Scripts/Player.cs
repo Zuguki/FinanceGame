@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     public static List<Education> Educations = new();
 
     public static int CashFlow => Incomes.Sum(inc => inc.Value)
-                                  - Liabilities.Sum(exp => exp.Value);
+                                  - Liabilities.Sum(exp => exp.Price);
 
     public static int FreeTime => TimePerMonth - (+ Expenses.Sum(exp => exp.Time)
                                                   + Liabilities.Sum(pas => pas.ExpirationDate)
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
         UpdateValue(_incomeText, Incomes.Sum(inc => inc.Value));
         UpdateValue(_expensesText, Expenses.Sum(exp => exp.Value));
         UpdateValue(_assetsText, Assets.Sum(asset => asset.Price));
-        UpdateValue(_liabilitiesText, Liabilities.Sum(pas => pas.Value));
+        UpdateValue(_liabilitiesText, Liabilities.Sum(pas => pas.Price));
         UpdateValue(_freeTimeText, FreeTime);
         UpdateValue(_moodText, Mood);
 
@@ -208,5 +208,42 @@ public class Player : MonoBehaviour
         Assets.Remove(asset);
         Cash += asset.CurrentPrice;
         eventUI.SetActive(false);
+    }
+
+    public static void ShowLiabilities(GameObject buttonPrefab, GameObject eventUI)
+    {
+        
+        _statTitle.text = "Пассивы";
+        _statAssets.SetActive(false);
+        _statTexts.SetActive(false);
+        _statLiabilities.SetActive(true);
+        DestroyElements(_statLiabilities);
+
+        foreach (var liabilities in Liabilities)
+        {
+            var pref = Instantiate(buttonPrefab, _statLiabilities.transform);
+            pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = liabilities.Title;
+            
+            var btn = pref.GetComponent<Button>();
+            btn.onClick.AddListener(() => ShowByLiability(liabilities, eventUI));
+        }
+    }
+
+    private static void ShowByLiability(Passive liability, GameObject eventUI)
+    {
+        eventUI.SetActive(true);
+        var title = eventUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        var info = eventUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        var success = eventUI.transform.GetChild(2).GetComponent<Button>();
+        var cancel = eventUI.transform.GetChild(3).GetComponent<Button>();
+
+        title.text = liability.Title;
+        info.text = $"У вас есть пассив под названием: {liability.Title}\n" +
+                    $"Пассив обходится вам в: {liability.Price}";
+        
+        success.onClick.RemoveAllListeners();
+        cancel.onClick.RemoveAllListeners();
+        success.onClick.AddListener(() => Cancel(eventUI));
+        cancel.onClick.AddListener(() => Cancel(eventUI));
     }
 }

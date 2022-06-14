@@ -16,5 +16,6 @@ public class ButtonsManager : MonoBehaviour
         
         _main.onClick.AddListener(Player.ShowMain);
         _assets.onClick.AddListener(() => Player.ShowAssets(buttonPrefab, eventUI));
+        _liabilities.onClick.AddListener(() => Player.ShowLiabilities(buttonPrefab, eventUI));
     }
 }

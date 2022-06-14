@@ -3,13 +3,13 @@
     public class Passive
     {
         public string Title { get; }
-        public int Value { get; private set; }
+        public int Price { get; private set; }
         public int ExpirationDate { get; set; }
 
-        public Passive(string title, int value, int expirationDate)
+        public Passive(string title, int price, int expirationDate)
         {
             Title = title;
-            Value = value;
+            Price = price;
             ExpirationDate = expirationDate;
         }
     }
