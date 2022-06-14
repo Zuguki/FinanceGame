@@ -59,20 +59,22 @@ public class Player : MonoBehaviour
 
     private const float EventTime = 2f;
 
-    private readonly Color _defaultColor = Color.black;
-    private readonly Color _upgradeColor = Color.blue;
+    private readonly Color _defaultColor = Color.white;
+    private readonly Color _upgradeColor = Color.green;
     private readonly Color _downgradeColor = Color.red;
 
     private void Awake()
     {
-        _cashText = playerInfoUI.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _cashFlowText = playerInfoUI.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _incomeText = playerInfoUI.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _expensesText = playerInfoUI.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _assetsText = playerInfoUI.transform.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _liabilitiesText = playerInfoUI.transform.GetChild(6).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _freeTimeText = playerInfoUI.transform.GetChild(7).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _moodText = playerInfoUI.transform.GetChild(8).GetChild(0).GetComponent<TextMeshProUGUI>();
+        var texts = playerInfoUI.transform.GetChild(1).gameObject;
+        
+        _cashText = texts.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _cashFlowText = texts.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _incomeText = texts.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _expensesText = texts.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _assetsText = texts.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _liabilitiesText = texts.transform.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _freeTimeText = texts.transform.GetChild(6).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _moodText = texts.transform.GetChild(7).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
