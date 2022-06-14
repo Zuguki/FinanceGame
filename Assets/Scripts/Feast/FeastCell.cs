@@ -20,7 +20,10 @@ namespace Feast
         private readonly IFeastInfo[] _feasts =
         {
             new BlueWindow(), new IllegalRider(), new ImRocker(),
-            new ForKebabs(), new HelloAlisa()
+            new ForKebabs(), new HelloAlisa(),
+            
+            new ShifterMachine(), new MovieMan(), new ElectricScooter(),
+            new LovelyHome(), new MusicConnectMe()
         };
         private IFeastInfo _feast;
         private int _price;
