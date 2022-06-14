@@ -4,6 +4,7 @@
     {
         public string Title { get; }
         public int Price { get; }
+        public int CurrentPrice { get; set; }
         public int IncomeValue { get; }
         public int HealthValue { get; }
         public int ExpirationDate { get; set; }
@@ -14,6 +15,7 @@
         {
             Title = title;
             Price = price;
+            CurrentPrice = price;
             IncomeValue = incomeValue;
             HealthValue = healthValue;
             ExpirationDate = expirationDate;

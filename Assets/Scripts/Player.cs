@@ -4,6 +4,7 @@ using System.Linq;
 using Main;
 using Science;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,6 @@ public class Player : MonoBehaviour
     public static bool NeedsUpdate = true;
 
     [SerializeField] private GameObject playerInfoUI;
-    [SerializeField] private GameObject statsButtonPrefab;
 
     private const int TimePerMonth = 100;
 
@@ -55,6 +55,11 @@ public class Player : MonoBehaviour
         _freeTimeText,
         _moodText;
 
+    private static TextMeshProUGUI _statTitle;
+    private static GameObject _statTexts;
+    private static GameObject _statAssets;
+    private static GameObject _statLiabilities;
+        
     private static int _mood = 5;
 
     private const float EventTime = 2f;
@@ -65,16 +70,20 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        var texts = playerInfoUI.transform.GetChild(1).gameObject;
+        _statTitle = playerInfoUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         
-        _cashText = texts.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _cashFlowText = texts.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _incomeText = texts.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _expensesText = texts.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _assetsText = texts.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _liabilitiesText = texts.transform.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _freeTimeText = texts.transform.GetChild(6).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _moodText = texts.transform.GetChild(7).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _statTexts = playerInfoUI.transform.GetChild(1).gameObject;
+        _statAssets = playerInfoUI.transform.GetChild(2).gameObject;
+        _statLiabilities = playerInfoUI.transform.GetChild(3).gameObject;
+        
+        _cashText = _statTexts.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _cashFlowText = _statTexts.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _incomeText = _statTexts.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _expensesText = _statTexts.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _assetsText = _statTexts.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _liabilitiesText = _statTexts.transform.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _freeTimeText = _statTexts.transform.GetChild(6).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _moodText = _statTexts.transform.GetChild(7).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -138,5 +147,66 @@ public class Player : MonoBehaviour
 
         foreach (var income in Incomes.Where(income => income.RatioOfUpgrade < educationRatio))
             income.RatioOfUpgrade = educationRatio;
+    }
+
+    public static void ShowMain()
+    {
+        _statTitle.text = "Основная информация";
+        _statAssets.SetActive(false);
+        _statLiabilities.SetActive(false);
+        _statTexts.SetActive(true);
+    }
+
+    public static void ShowAssets(GameObject prefab, GameObject eventUI)
+    {
+        _statTitle.text = "Активы";
+        _statTexts.SetActive(false);
+        _statLiabilities.SetActive(false);
+        _statAssets.SetActive(true);
+        DestroyElements(_statAssets);
+
+        foreach (var asset in Assets)
+        {
+            var pref = Instantiate(prefab, _statAssets.transform);
+            pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = asset.Title;
+            
+            var btn = pref.GetComponent<Button>();
+            btn.onClick.AddListener(() => ShowByAsset(asset, eventUI));
+        }
+    }
+
+    private static void DestroyElements(GameObject item)
+    {
+        foreach (Transform child in item.transform)
+            Destroy(child.gameObject);
+    }
+
+    private static void ShowByAsset(Asset asset, GameObject eventUI)
+    {
+        eventUI.SetActive(true);
+        var title = eventUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        var info = eventUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        var success = eventUI.transform.GetChild(2).GetComponent<Button>();
+        var cancel = eventUI.transform.GetChild(3).GetComponent<Button>();
+
+        title.text = asset.Title;
+        info.text = $"У вас есть имущество под названием: {asset.Title}\n" +
+                    $"Цена имущества: {asset.Price}\n" +
+                    $"Цена продажи имущества: {asset.CurrentPrice}";
+        
+        success.onClick.RemoveAllListeners();
+        cancel.onClick.RemoveAllListeners();
+        success.onClick.AddListener(() => Success(asset, eventUI));
+        cancel.onClick.AddListener(() => Cancel(eventUI));
+    }
+
+    private static void Cancel(GameObject eventUI) =>
+        eventUI.SetActive(false);
+
+    private static void Success(Asset asset, GameObject eventUI)
+    {
+        Assets.Remove(asset);
+        Cash += asset.CurrentPrice;
+        eventUI.SetActive(false);
     }
 }
