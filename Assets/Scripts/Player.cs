@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public static List<Education> Educations = new();
 
     public static int CashFlow => Incomes.Sum(inc => inc.Value)
-                                  - Expenses.Sum(exp => exp.Value);
+                                  - Liabilities.Sum(exp => exp.Value);
 
     public static int FreeTime => TimePerMonth - (+ Expenses.Sum(exp => exp.Time)
                                                   + Liabilities.Sum(pas => pas.ExpirationDate)

@@ -17,7 +17,11 @@ namespace Feast
         private Button _successButton;
         private Button _cancelButton;
         
-        private readonly IFeastInfo[] _feasts = {new SomeFood(), new FixLaptop()};
+        private readonly IFeastInfo[] _feasts =
+        {
+            new BlueWindow(), new IllegalRider(), new ImRocker(),
+            new ForKebabs(), new HelloAlisa()
+        };
         private IFeastInfo _feast;
         private int _price;
         
