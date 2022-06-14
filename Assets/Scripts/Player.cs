@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public static bool NeedsUpdate = true;
 
     [SerializeField] private GameObject playerInfoUI;
+    [SerializeField] private GameObject statsButtonPrefab;
 
     private const int TimePerMonth = 100;
 
