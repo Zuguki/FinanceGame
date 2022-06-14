@@ -72,9 +72,9 @@ namespace Feast
             
             if (_feast.IsLiabilities())
             {
-                // TODO: Сделать timeForMonth, monthLength
-                var passive = new Passive(_feast.Title(), _price, 1, rnd.Next(1, 4));
+                var passive = new Passive(_feast.Title(), _price, _feast.ExpirationDate());
                 Player.Liabilities.Add(passive);
+                Player.Expenses.Add(new Expense(_feast.Title(), _price, _feast.ExpirationDate()));
             }
             
             Player.Mood += rnd.Next(1, 2);
