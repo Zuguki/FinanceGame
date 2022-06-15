@@ -4,7 +4,6 @@ using System.Linq;
 using Main;
 using Science;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -118,15 +117,16 @@ public class Player : MonoBehaviour
 
     private void UpdateValue(TMP_Text stat, int value)
     {
-        var good = int.TryParse(stat.text, out var statValue);
+        var good = Converter.ConvertToInt(stat.text, out var statValue);
         if (!good || statValue == value)
         {
-            stat.text = value.ToString();
+            stat.text = Converter.ConvertToString(value.ToString());
             return;
         }
 
-        StartCoroutine(ChangeColor(int.Parse(stat.text) < value, stat));
-        stat.text = value.ToString();
+        Converter.ConvertToInt(stat.text, out var val);
+        StartCoroutine(ChangeColor(val < value, stat));
+        stat.text = Converter.ConvertToString(value.ToString());
     }
 
     private IEnumerator ChangeColor(bool isUpgrade, Graphic stat)

@@ -19,7 +19,9 @@ namespace Main
                     continue;
 
                 counter = 0;
-                sb.Append(".");
+                
+                if (index != 0)
+                    sb.Append('.');
             }
 
             var array = sb.ToString().ToCharArray();
@@ -27,10 +29,10 @@ namespace Main
             return new string(array);
         }
 
-        public static int ConvertToInt(string value)
+        public static bool ConvertToInt(string value, out int result)
         {
             var clearString = new string(value.Where(item => item != '.').ToArray());
-            return int.Parse(clearString);
+            return int.TryParse(clearString, out result);
         }
     }
 
