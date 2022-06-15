@@ -20,7 +20,7 @@ namespace Main
 
                 counter = 0;
                 
-                if (index != 0)
+                if (index != 0 && value[index - 1] != '-')
                     sb.Append('.');
             }
 
