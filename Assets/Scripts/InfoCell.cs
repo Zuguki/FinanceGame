@@ -81,6 +81,8 @@ namespace Science
         {
             foreach (var _ in Player.Assets.Where(asset => asset.HealthValue > 0))
                 Player.Mood += Random.Range(0, 100) > 80 ? 1 : 0;
+
+            Player.Mood -= Random.Range(0, 100) > 70 ? 1 : 0;
         }
 
         private static void SetDoneAssets() =>
