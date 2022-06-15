@@ -42,7 +42,7 @@ namespace Feast
         {
             SetFeastInfo();
             _title.text = _feast.Title();
-            _info.text = _feast.Details(_price);
+            _info.text = _feast.Details(Converter.ConvertToString(_price.ToString()));
             
             _successButton.onClick.RemoveAllListeners();
             _successButton.onClick.AddListener(Success);

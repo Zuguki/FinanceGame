@@ -4,7 +4,7 @@
     {
         public string Title() => $"Машина-перевертыш";
 
-        public string Details(int price) => $"Ваш автомобиль попал в аварию и чтобы его починить, " +
+        public string Details(string price) => $"Ваш автомобиль попал в аварию и чтобы его починить, " +
                                             $"вам нужно отдать его в автосервис\n" +
                                             $"Цена: {price}р.\n" +
                                             $"Действует: {ExpirationDate()}мес.\n\n" +
