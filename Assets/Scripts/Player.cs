@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
     public static List<Education> Educations = new();
-    
+
     public static int Incomes => Assets.Sum(asset => asset.IncomeValue);
     public static int Expenses => Liabilities.Sum(liab => liab.IncomeValue);
 
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
 
     private static TextMeshProUGUI _statTitle;
     private static GameObject _statTexts, _statAssets, _statLiabilities, _statSciences, _statTargets;
-        
+
     private static int _mood = 5;
 
     private const float EventTime = 2f;
@@ -67,13 +67,13 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _statTitle = playerInfoUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        
+
         _statTexts = playerInfoUI.transform.GetChild(1).gameObject;
         _statAssets = playerInfoUI.transform.GetChild(2).gameObject;
         _statLiabilities = playerInfoUI.transform.GetChild(3).gameObject;
         _statSciences = playerInfoUI.transform.GetChild(4).gameObject;
         _statTargets = playerInfoUI.transform.GetChild(5).gameObject;
-        
+
         _cashText = _statTexts.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         _cashFlowText = _statTexts.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         _incomeText = _statTexts.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -140,7 +140,7 @@ public class Player : MonoBehaviour
     {
         if (Educations.Count == 0)
             return;
-        
+
         var educationRatio = 1 + Educations.Where(educ => educ.ExpirationDate <= 0)
             .Sum(educ => educ.RatioOfUpgrade) * 0.01f;
 
@@ -163,8 +163,8 @@ public class Player : MonoBehaviour
         _statTitle.text = "Активы";
         _statTexts.SetActive(false);
         _statLiabilities.SetActive(false);
-                _statSciences.SetActive(false);
-                _statTargets.SetActive(false);
+        _statSciences.SetActive(false);
+        _statTargets.SetActive(false);
         _statAssets.SetActive(true);
         DestroyElements(_statAssets);
 
@@ -172,12 +172,12 @@ public class Player : MonoBehaviour
         {
             var pref = Instantiate(prefab, _statAssets.transform);
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = asset.Title;
-            pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text 
+            pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = $"{Converter.ConvertToString(asset.Price.ToString())}" +
                   $"({Converter.ConvertToString(asset.CurrentPrice.ToString())})";
-            
+
             var btn = pref.GetComponent<Button>();
-            btn.onClick.AddListener(() => ShowByAsset(asset, eventUI));
+            btn.onClick.AddListener(() => ShowByAsset(prefab, asset, eventUI));
         }
     }
 
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour
             Destroy(child.gameObject);
     }
 
-    private static void ShowByAsset(Asset asset, GameObject eventUI)
+    private static void ShowByAsset(GameObject prefab, Asset asset, GameObject eventUI)
     {
         eventUI.SetActive(true);
         var title = eventUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -202,21 +202,22 @@ public class Player : MonoBehaviour
                     $"Ежемесячный доход: {Converter.ConvertToString(asset.IncomeValue.ToString())}р.\n" +
                     $"Требуется времени: {Converter.ConvertToString(asset.NeedsTime.ToString())} в месяц\n" +
                     $"Вы хотите продать имущество за: {Converter.ConvertToString(asset.CurrentPrice.ToString())}р?";
-        
+
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
-        success.onClick.AddListener(() => Success(asset, eventUI));
+        success.onClick.AddListener(() => Success(prefab, asset, eventUI));
         cancel.onClick.AddListener(() => Cancel(eventUI));
     }
 
     private static void Cancel(GameObject eventUI) =>
         eventUI.SetActive(false);
 
-    private static void Success(Asset asset, GameObject eventUI)
+    private static void Success(GameObject prefab, Asset asset, GameObject eventUI)
     {
         Assets.Remove(asset);
         Cash += asset.CurrentPrice;
         eventUI.SetActive(false);
+        ShowAssets(prefab, eventUI);
 
         NeedsUpdate = true;
     }
@@ -226,8 +227,8 @@ public class Player : MonoBehaviour
         _statTitle.text = "Пассивы";
         _statAssets.SetActive(false);
         _statTexts.SetActive(false);
-                _statSciences.SetActive(false);
-                _statTargets.SetActive(false);
+        _statSciences.SetActive(false);
+        _statTargets.SetActive(false);
         _statLiabilities.SetActive(true);
         DestroyElements(_statLiabilities);
 
@@ -237,7 +238,7 @@ public class Player : MonoBehaviour
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = liabilities.Title;
             pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = $"{Converter.ConvertToString(liabilities.Price.ToString())}";
-            
+
             var btn = pref.GetComponent<Button>();
             btn.onClick.AddListener(() => ShowByLiability(liabilities, eventUI));
         }
@@ -254,7 +255,7 @@ public class Player : MonoBehaviour
         title.text = liability.Title;
         info.text = $"У вас есть пассив под названием: {liability.Title}\n\n" +
                     $"Пассив обходится вам в: {Converter.ConvertToString(liability.IncomeValue.ToString())}";
-        
+
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
         success.onClick.AddListener(() => Cancel(eventUI));
@@ -267,8 +268,8 @@ public class Player : MonoBehaviour
         _statAssets.SetActive(false);
         _statTexts.SetActive(false);
         _statLiabilities.SetActive(false);
-                _statTargets.SetActive(false);
-                _statSciences.SetActive(true);
+        _statTargets.SetActive(false);
+        _statSciences.SetActive(true);
         DestroyElements(_statSciences);
 
         foreach (var education in Educations.Where(educ => educ.ExpirationDate <= 0))
@@ -277,7 +278,7 @@ public class Player : MonoBehaviour
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = education.Title;
             pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = $"{Converter.ConvertToString(education.Price.ToString())}";
-            
+
             var btn = pref.GetComponent<Button>();
             btn.onClick.AddListener(() => ShowByScience(education, eventUI));
         }
@@ -295,7 +296,7 @@ public class Player : MonoBehaviour
         info.text = $"Вы прошли обучающий курс: {education.Title}\n\n" +
                     $"Стоимость курса: {Converter.ConvertToString(education.Price.ToString())}\n" +
                     $"Курс дал прирост к активам в размере: {education.RatioOfUpgrade}%";
-        
+
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
         success.onClick.AddListener(() => Cancel(eventUI));
