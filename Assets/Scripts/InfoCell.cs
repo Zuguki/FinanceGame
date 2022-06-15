@@ -37,6 +37,7 @@ namespace Science
             SetDonePassives();
             SetDoneEducations();
             TryUpgradeMood();
+            ChangeAssetPrice();
             
             _assetID = 0;
             _passiveID = 0;
@@ -53,6 +54,17 @@ namespace Science
 
             _button.onClick.RemoveAllListeners();
             _button.onClick.AddListener(Success);
+        }
+
+        private static void ChangeAssetPrice()
+        {
+            foreach (var asset in Player.Assets)
+            {
+                if (asset.IsBusiness)
+                    asset.CurrentPrice += Random.Range(-asset.Price / 5, asset.Price / 5);
+                else if (asset.IsRealty)
+                    asset.CurrentPrice += Random.Range(-asset.Price / 15, asset.Price / 15);
+            }
         }
 
         private void ShowPassiveUI(int passiveID)

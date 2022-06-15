@@ -167,8 +167,13 @@ namespace Assets
                 return;
             }
             
-            Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
-                currentItem.NeedsTime));
+            if (currentItem.BusinessInfo is Business.Business.None)
+                Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
+                currentItem.NeedsTime, false, true));
+            else
+                Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
+                            currentItem.NeedsTime, true));
+            
             Player.Cash -= currentItem.Price;
             Player.NeedsUpdate = true;
             

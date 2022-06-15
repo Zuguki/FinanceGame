@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
         UpdateValue(_cashFlowText, CashFlow);
         UpdateValue(_incomeText, Incomes);
         UpdateValue(_expensesText, Expenses);
-        UpdateValue(_assetsText, Assets.Sum(asset => asset.Price));
+        UpdateValue(_assetsText, Assets.Sum(asset => asset.CurrentPrice));
         UpdateValue(_liabilitiesText, Liabilities.Sum(pas => pas.Price));
         UpdateValue(_freeTimeText, FreeTime);
         UpdateValue(_moodText, Mood);
