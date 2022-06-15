@@ -54,9 +54,7 @@ public class Player : MonoBehaviour
         _moodText;
 
     private static TextMeshProUGUI _statTitle;
-    private static GameObject _statTexts;
-    private static GameObject _statAssets;
-    private static GameObject _statLiabilities;
+    private static GameObject _statTexts, _statAssets, _statLiabilities, _statSciences, _statTargets;
         
     private static int _mood = 5;
 
@@ -73,6 +71,8 @@ public class Player : MonoBehaviour
         _statTexts = playerInfoUI.transform.GetChild(1).gameObject;
         _statAssets = playerInfoUI.transform.GetChild(2).gameObject;
         _statLiabilities = playerInfoUI.transform.GetChild(3).gameObject;
+        _statSciences = playerInfoUI.transform.GetChild(4).gameObject;
+        _statTargets = playerInfoUI.transform.GetChild(5).gameObject;
         
         _cashText = _statTexts.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         _cashFlowText = _statTexts.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -153,6 +153,8 @@ public class Player : MonoBehaviour
         _statTitle.text = "Основная информация";
         _statAssets.SetActive(false);
         _statLiabilities.SetActive(false);
+        _statSciences.SetActive(false);
+        _statTargets.SetActive(false);
         _statTexts.SetActive(true);
     }
 
@@ -161,6 +163,8 @@ public class Player : MonoBehaviour
         _statTitle.text = "Активы";
         _statTexts.SetActive(false);
         _statLiabilities.SetActive(false);
+                _statSciences.SetActive(false);
+                _statTargets.SetActive(false);
         _statAssets.SetActive(true);
         DestroyElements(_statAssets);
 
@@ -219,10 +223,11 @@ public class Player : MonoBehaviour
 
     public static void ShowLiabilities(GameObject buttonPrefab, GameObject eventUI)
     {
-        
         _statTitle.text = "Пассивы";
         _statAssets.SetActive(false);
         _statTexts.SetActive(false);
+                _statSciences.SetActive(false);
+                _statTargets.SetActive(false);
         _statLiabilities.SetActive(true);
         DestroyElements(_statLiabilities);
 
@@ -249,6 +254,47 @@ public class Player : MonoBehaviour
         title.text = liability.Title;
         info.text = $"У вас есть пассив под названием: {liability.Title}\n\n" +
                     $"Пассив обходится вам в: {Converter.ConvertToString(liability.IncomeValue.ToString())}";
+        
+        success.onClick.RemoveAllListeners();
+        cancel.onClick.RemoveAllListeners();
+        success.onClick.AddListener(() => Cancel(eventUI));
+        cancel.onClick.AddListener(() => Cancel(eventUI));
+    }
+
+    public static void ShowSciences(GameObject buttonPrefab, GameObject eventUI)
+    {
+        _statTitle.text = "Знания";
+        _statAssets.SetActive(false);
+        _statTexts.SetActive(false);
+        _statLiabilities.SetActive(false);
+                _statTargets.SetActive(false);
+                _statSciences.SetActive(true);
+        DestroyElements(_statSciences);
+
+        foreach (var education in Educations.Where(educ => educ.ExpirationDate <= 0))
+        {
+            var pref = Instantiate(buttonPrefab, _statSciences.transform);
+            pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = education.Title;
+            pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
+                = $"{Converter.ConvertToString(education.Price.ToString())}";
+            
+            var btn = pref.GetComponent<Button>();
+            btn.onClick.AddListener(() => ShowByScience(education, eventUI));
+        }
+    }
+
+    private static void ShowByScience(Education education, GameObject eventUI)
+    {
+        eventUI.SetActive(true);
+        var title = eventUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        var info = eventUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        var success = eventUI.transform.GetChild(2).GetComponent<Button>();
+        var cancel = eventUI.transform.GetChild(3).GetComponent<Button>();
+
+        title.text = education.Title;
+        info.text = $"Вы прошли обучающий курс: {education.Title}\n\n" +
+                    $"Стоимость курса: {Converter.ConvertToString(education.Price.ToString())}\n" +
+                    $"Курс дал прирост к активам в размере: {education.RatioOfUpgrade}%";
         
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
