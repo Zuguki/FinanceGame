@@ -168,6 +168,9 @@ public class Player : MonoBehaviour
         {
             var pref = Instantiate(prefab, _statAssets.transform);
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = asset.Title;
+            pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text 
+                = $"{Converter.ConvertToString(asset.Price.ToString())}" +
+                  $"({Converter.ConvertToString(asset.CurrentPrice.ToString())})";
             
             var btn = pref.GetComponent<Button>();
             btn.onClick.AddListener(() => ShowByAsset(asset, eventUI));
@@ -227,6 +230,8 @@ public class Player : MonoBehaviour
         {
             var pref = Instantiate(buttonPrefab, _statLiabilities.transform);
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = liabilities.Title;
+            pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
+                = $"{Converter.ConvertToString(liabilities.Price.ToString())}";
             
             var btn = pref.GetComponent<Button>();
             btn.onClick.AddListener(() => ShowByLiability(liabilities, eventUI));
