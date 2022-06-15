@@ -81,7 +81,6 @@ namespace Feast
             {
                 var passive = new Passive(_feast.Title(), _price, _feast.ExpirationDate());
                 Player.Liabilities.Add(passive);
-                Player.Expenses.Add(new Expense(_feast.Title(), _price, _feast.ExpirationDate()));
             }
             
             Player.Mood += rnd.Next(1, 2);

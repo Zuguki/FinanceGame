@@ -16,17 +16,16 @@ public class Player : MonoBehaviour
     private const int TimePerMonth = 100;
 
     public static int Cash = 10000000;
-    public static List<Income> Incomes = new();
-    public static List<Expense> Expenses = new();
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
     public static List<Education> Educations = new();
+    
+    public static int Incomes => Assets.Sum(asset => asset.IncomeValue);
+    public static int Expenses => Liabilities.Sum(liab => liab.IncomeValue);
 
-    public static int CashFlow => Incomes.Sum(inc => inc.Value)
-                                  - Liabilities.Sum(exp => exp.Price);
+    public static int CashFlow => Incomes - Expenses;
 
-    public static int FreeTime => TimePerMonth - (+ Expenses.Sum(exp => exp.Time)
-                                                  + Liabilities.Sum(pas => pas.ExpirationDate)
+    public static int FreeTime => TimePerMonth - (Liabilities.Sum(pas => pas.ExpirationDate)
                                                   + Assets.Sum(asset => asset.NeedsTime)
                                                   + Educations.Where(educ => educ.ExpirationDate > 0)
                                                       .Sum(educ => educ.NeedsTime));
@@ -99,8 +98,8 @@ public class Player : MonoBehaviour
 
         UpdateValue(_cashText, Cash);
         UpdateValue(_cashFlowText, CashFlow);
-        UpdateValue(_incomeText, Incomes.Sum(inc => inc.Value));
-        UpdateValue(_expensesText, Expenses.Sum(exp => exp.Value));
+        UpdateValue(_incomeText, Incomes);
+        UpdateValue(_expensesText, Expenses);
         UpdateValue(_assetsText, Assets.Sum(asset => asset.Price));
         UpdateValue(_liabilitiesText, Liabilities.Sum(pas => pas.Price));
         UpdateValue(_freeTimeText, FreeTime);
@@ -145,8 +144,8 @@ public class Player : MonoBehaviour
         var educationRatio = 1 + Educations.Where(educ => educ.ExpirationDate <= 0)
             .Sum(educ => educ.RatioOfUpgrade) * 0.01f;
 
-        foreach (var income in Incomes.Where(income => income.RatioOfUpgrade < educationRatio))
-            income.RatioOfUpgrade = educationRatio;
+        foreach (var asset in Assets.Where(asset => asset.RatioOfUpgrade < educationRatio))
+            asset.RatioOfUpgrade = educationRatio;
     }
 
     public static void ShowMain()
@@ -190,9 +189,11 @@ public class Player : MonoBehaviour
         var cancel = eventUI.transform.GetChild(3).GetComponent<Button>();
 
         title.text = asset.Title;
-        info.text = $"У вас есть имущество под названием: {asset.Title}\n" +
-                    $"Цена имущества: {asset.Price}\n" +
-                    $"Цена продажи имущества: {asset.CurrentPrice}";
+        info.text = $"У вас есть имущество под названием: {asset.Title}\n\n" +
+                    $"Цена имущества: {Converter.ConvertToString(asset.Price.ToString())}\n" +
+                    $"Ежемесячный доход: {Converter.ConvertToString(asset.IncomeValue.ToString())}\n" +
+                    $"Требуется времени: {Converter.ConvertToString(asset.NeedsTime.ToString())} в месяц\n" +
+                    $"Цена продажи имущества: {Converter.ConvertToString(asset.CurrentPrice.ToString())}";
         
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
@@ -208,6 +209,8 @@ public class Player : MonoBehaviour
         Assets.Remove(asset);
         Cash += asset.CurrentPrice;
         eventUI.SetActive(false);
+
+        NeedsUpdate = true;
     }
 
     public static void ShowLiabilities(GameObject buttonPrefab, GameObject eventUI)
@@ -238,8 +241,8 @@ public class Player : MonoBehaviour
         var cancel = eventUI.transform.GetChild(3).GetComponent<Button>();
 
         title.text = liability.Title;
-        info.text = $"У вас есть пассив под названием: {liability.Title}\n" +
-                    $"Пассив обходится вам в: {liability.Price}";
+        info.text = $"У вас есть пассив под названием: {liability.Title}\n\n" +
+                    $"Пассив обходится вам в: {Converter.ConvertToString(liability.IncomeValue.ToString())}";
         
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
