@@ -60,10 +60,14 @@ namespace Science
         {
             foreach (var asset in Player.Assets)
             {
+                var currentPrice = asset.CurrentPrice;
                 if (asset.IsBusiness)
                     asset.CurrentPrice += Random.Range(-asset.Price / 5, asset.Price / 5);
                 else if (asset.IsRealty)
-                    asset.CurrentPrice += Random.Range(-asset.Price / 15, asset.Price / 15);
+                    asset.CurrentPrice += Random.Range(-asset.Price / 50, asset.Price / 50);
+
+                if (asset.CurrentPrice < currentPrice && asset.CurrentPrice < asset.Price / 50)
+                    asset.CurrentPrice = asset.Price;
             }
         }
 
