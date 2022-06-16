@@ -39,6 +39,7 @@ namespace Feast
             _cancelButton = cellUI.transform.GetChild(3).GetComponent<Button>();
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void ShowDetails()
         {
             SetFeastInfo();
@@ -46,7 +47,15 @@ namespace Feast
             _info.text = _feast.Details(Converter.ConvertToString(_price.ToString()));
 
             _successButton.onClick.RemoveAllListeners();
-            _successButton.onClick.AddListener(Success);
+            
+            var graphic = _successButton.GetComponent<Graphic>();
+            if (Player.Cash < _price)
+                graphic.color = Player.UnActiveButtonColor;
+            else
+            {
+                _successButton.onClick.AddListener(Success);
+                graphic.color = Player.ActiveButtonColor;
+            }
 
             _cancelButton.onClick.RemoveAllListeners();
             _cancelButton.onClick.AddListener(Cancel);
@@ -69,7 +78,10 @@ namespace Feast
                 }
 
                 _feast = _feasts.Where(info => info.IsLiabilities() is false).ToList()[rnd.Next(0, feastsCount - 1)];
-                _price = (int) (percent * Player.Cash);
+                if (Player.Cash < 100_000)
+                    _price = 100_000;
+                else
+                    _price = (int) (percent * Player.Cash);
             }
             else
             {
@@ -86,7 +98,11 @@ namespace Feast
                                                && !Player.Liabilities.Any(liab => liab.Title == info.Title()))
                     .ToList()[rnd.Next(0, feastsCount - 1)];
                 
-                _price = (int) (percent * Player.Cash);
+                if (Player.Cash < 100_000)
+                    _price = 100_000;
+                else
+                    _price = (int) (percent * Player.Cash);
+
             }
         }
 

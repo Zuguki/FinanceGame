@@ -36,6 +36,7 @@ namespace Health
             _cancelButton = cellUI.transform.GetChild(3).GetComponent<Button>();
         }
         
+        // ReSharper disable Unity.PerformanceAnalysis
         public void ShowDetails()
         {
             SetHealthInfo();
@@ -43,7 +44,15 @@ namespace Health
             _info.text = _healthInfo.Details(_price);
                         
             _successButton.onClick.RemoveAllListeners();
-            _successButton.onClick.AddListener(Success);
+            
+            var graphic = _successButton.GetComponent<Graphic>();
+            if (Player.Cash < _price)
+                graphic.color = Player.UnActiveButtonColor;
+            else
+            {
+                _successButton.onClick.AddListener(Success);
+                graphic.color = Player.ActiveButtonColor;
+            }
             
             _cancelButton.onClick.RemoveAllListeners();
             _cancelButton.onClick.AddListener(Cancel);
@@ -55,14 +64,17 @@ namespace Health
         {
             var rnd = new Random();
 
-            var percent = rnd.Next(1, 5) * 0.01;
+            var percent = rnd.Next(5, 10) * 0.01;
             var goodInfo = _healthInfos
                 .Where(info => Player.Assets.All(p => p.Title != info.Title())).ToList();
 
             if (goodInfo.Count > 0)
             {
-                _healthInfo = goodInfo[rnd.Next(0, goodInfo.Count - 1)]; 
-                _price = (int) (percent * Player.Cash);
+                _healthInfo = goodInfo[rnd.Next(0, goodInfo.Count - 1)];
+                if (Player.Cash < 100_000)
+                    _price = 100_000;
+                else
+                    _price = (int) (percent * Player.Cash);
             }
             else
                 _healthInfo = new DefaultHealth();
