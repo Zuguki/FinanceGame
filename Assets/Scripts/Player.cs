@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
         _statTitle = playerInfoUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
         _statTexts = playerInfoUI.transform.GetChild(1).gameObject;
-        _statAssets = playerInfoUI.transform.GetChild(2).gameObject;
+        _statAssets = playerInfoUI.transform.GetChild(2).GetChild(0).gameObject;
         _statLiabilities = playerInfoUI.transform.GetChild(3).gameObject;
         _statSciences = playerInfoUI.transform.GetChild(4).gameObject;
         _statTargets = playerInfoUI.transform.GetChild(5).gameObject;
