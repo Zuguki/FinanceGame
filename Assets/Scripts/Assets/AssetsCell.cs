@@ -5,6 +5,7 @@ using Assets.Business.Height;
 using Assets.Business.Low;
 using Assets.Business.Middle;
 using Assets.Realty;
+using Assets.Realty.Low;
 using Main;
 using TMPro;
 using UnityEngine;
@@ -44,7 +45,7 @@ namespace Assets
             
             new University(), new PerfumeBrand(), new FootballClub(), new Factory(), new CarDealership(),
 
-            new Home()
+            new AdvertisingStand(), new CarRental(), new CountryHouse(), new PowerLines(),
         };
 
         private readonly IAsset _defaultRealty = new DefaultRealtyNotification();
