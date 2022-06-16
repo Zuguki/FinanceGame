@@ -32,7 +32,7 @@ namespace Assets
 
         private readonly IAsset _defaultBusiness = new DefaultBusinessNotification();
 
-        private readonly IAsset[] _assetInfos = { new Pivovarnya(), new Home() };
+        private readonly IAsset[] _assetInfos = { new Kiosk(), new Home() };
 
         private readonly IAsset _defaultRealty = new DefaultRealtyNotification();
 
