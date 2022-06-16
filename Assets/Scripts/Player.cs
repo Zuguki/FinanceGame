@@ -83,6 +83,8 @@ public class Player : MonoBehaviour
     private static TextMeshProUGUI _statTitle;
     private static GameObject _statTexts, _statAssets, _statLiabilities, _statSciences, _statTargets;
 
+    private static GameObject _statAssetsContent, _statLiabilitiesContent, _statSciencesContent, _statTargetsContent;
+
     private static int _mood = 4;
 
     private const float EventTime = 2f;
@@ -96,10 +98,15 @@ public class Player : MonoBehaviour
         _statTitle = playerInfoUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
         _statTexts = playerInfoUI.transform.GetChild(1).gameObject;
-        _statAssets = playerInfoUI.transform.GetChild(2).GetChild(0).gameObject;
+        _statAssets = playerInfoUI.transform.GetChild(2).gameObject;
         _statLiabilities = playerInfoUI.transform.GetChild(3).gameObject;
         _statSciences = playerInfoUI.transform.GetChild(4).gameObject;
         _statTargets = playerInfoUI.transform.GetChild(5).gameObject;
+        
+        _statAssetsContent = playerInfoUI.transform.GetChild(2).GetChild(0).gameObject;
+        _statLiabilitiesContent = playerInfoUI.transform.GetChild(3).GetChild(0).gameObject;
+        _statSciencesContent = playerInfoUI.transform.GetChild(4).GetChild(0).gameObject;
+        _statTargetsContent = playerInfoUI.transform.GetChild(5).GetChild(0).gameObject;
 
         _cashText = _statTexts.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         _cashFlowText = _statTexts.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -269,11 +276,11 @@ public class Player : MonoBehaviour
         _statSciences.SetActive(false);
         _statTargets.SetActive(false);
         _statAssets.SetActive(true);
-        DestroyElements(_statAssets);
+        DestroyElements(_statAssetsContent);
 
         foreach (var asset in Assets)
         {
-            var pref = Instantiate(prefab, _statAssets.transform);
+            var pref = Instantiate(prefab, _statAssetsContent.transform);
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = asset.Title;
             pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = $"{Converter.ConvertToString(asset.Price.ToString())}" +
@@ -332,11 +339,11 @@ public class Player : MonoBehaviour
         _statSciences.SetActive(false);
         _statTargets.SetActive(false);
         _statLiabilities.SetActive(true);
-        DestroyElements(_statLiabilities);
+        DestroyElements(_statLiabilitiesContent);
 
         foreach (var liabilities in Liabilities)
         {
-            var pref = Instantiate(buttonPrefab, _statLiabilities.transform);
+            var pref = Instantiate(buttonPrefab, _statLiabilitiesContent.transform);
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = liabilities.Title;
             pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = $"{Converter.ConvertToString(liabilities.Price.ToString())}";
@@ -372,11 +379,11 @@ public class Player : MonoBehaviour
         _statLiabilities.SetActive(false);
         _statTargets.SetActive(false);
         _statSciences.SetActive(true);
-        DestroyElements(_statSciences);
+        DestroyElements(_statSciencesContent);
 
         foreach (var education in Educations.Where(educ => educ.ExpirationDate <= 0))
         {
-            var pref = Instantiate(buttonPrefab, _statSciences.transform);
+            var pref = Instantiate(buttonPrefab, _statSciencesContent.transform);
             pref.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = education.Title;
             pref.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = $"{Converter.ConvertToString(education.Price.ToString())}";
@@ -413,31 +420,31 @@ public class Player : MonoBehaviour
         _statLiabilities.SetActive(false);
         _statSciences.SetActive(false);
         _statTargets.SetActive(true);
-        DestroyElements(_statTargets);
+        DestroyElements(_statTargetsContent);
 
-        var time = Instantiate(prefab, _statTargets.transform);
+        var time = Instantiate(prefab, _statTargetsContent.transform);
         var text = time.GetComponent<TextMeshProUGUI>();
         text.text = $"Выполнить все цели за {CurrentTarget.YearsTime} круга.";
 
-        var businessCount = Instantiate(prefab, _statTargets.transform);
+        var businessCount = Instantiate(prefab, _statTargetsContent.transform);
         text = businessCount.GetComponent<TextMeshProUGUI>();
         if (Assets.Count(asset => asset.IsBusiness) >= CurrentTarget.BusinessCount)
             text.fontStyle = FontStyles.Highlight;
         text.text = $"Количество бизнесов не менее {CurrentTarget.BusinessCount}.";
 
-        var realtyCount = Instantiate(prefab, _statTargets.transform);
+        var realtyCount = Instantiate(prefab, _statTargetsContent.transform);
         text = realtyCount.GetComponent<TextMeshProUGUI>();
         if (Assets.Count(asset => asset.IsRealty) >= CurrentTarget.RealtyCount)
             text.fontStyle = FontStyles.Highlight;
         text.text = $"Количество недвижимости не менее {CurrentTarget.RealtyCount}.";
 
-        var moodCount = Instantiate(prefab, _statTargets.transform);
+        var moodCount = Instantiate(prefab, _statTargetsContent.transform);
         text = moodCount.GetComponent<TextMeshProUGUI>();
         if (Mood >= CurrentTarget.MoodStat)
             text.fontStyle = FontStyles.Highlight;
         text.text = $"Настроение не менее {CurrentTarget.MoodStat}.";
 
-        var cashFlow = Instantiate(prefab, _statTargets.transform);
+        var cashFlow = Instantiate(prefab, _statTargetsContent.transform);
         text = cashFlow.GetComponent<TextMeshProUGUI>();
         if (CashFlow >= CurrentTarget.CashFlow)
             text.fontStyle = FontStyles.Highlight;
