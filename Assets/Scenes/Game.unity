@@ -882,6 +882,22 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5344068461943120685, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344068461943120685, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344068461943120685, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344068461943120685, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5565733133197891035, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1101,6 +1117,10 @@ PrefabInstance:
     - target: {fileID: 5977621777228657672, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977621777228657673, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5977621777557377863, guid: d65c748a4fdd4ec46a0d9dfdbf4551e6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1525,6 +1545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 4065881561108716052, guid: 2fae68553663c1d4e851a10c78c42117, type: 3}
+  textPrefab: {fileID: 2556610986417727414, guid: 86b568e69ca536541a3b9237a77475c2, type: 3}
   eventUI: {fileID: 1175093162405340183}
 --- !u!1 &1329061550 stripped
 GameObject:

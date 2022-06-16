@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class ButtonsManager : MonoBehaviour
 {
     [SerializeField] private GameObject buttonPrefab;
+    [SerializeField] private GameObject textPrefab;
     [SerializeField] private GameObject eventUI;
     
     private Button _main, _assets, _liabilities, _sciences, _targets;
@@ -20,6 +21,6 @@ public class ButtonsManager : MonoBehaviour
         _assets.onClick.AddListener(() => Player.ShowAssets(buttonPrefab, eventUI));
         _liabilities.onClick.AddListener(() => Player.ShowLiabilities(buttonPrefab, eventUI));
         _sciences.onClick.AddListener(() => Player.ShowSciences(buttonPrefab, eventUI));
-        _targets.onClick.AddListener(() => Player.ShowTargets(buttonPrefab, eventUI));
+        _targets.onClick.AddListener(() => Player.ShowTargets(textPrefab, eventUI));
     }
 }

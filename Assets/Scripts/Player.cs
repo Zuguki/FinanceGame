@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject playerInfoUI;
 
-    private const int TimePerMonth = 50;
+    private const int TimePerMonth = 250;
 
     public static int Cash = 1_500_000;
     public static List<Passive> Liabilities = new();
@@ -336,34 +336,34 @@ public class Player : MonoBehaviour
         _statLiabilities.SetActive(false);
         _statSciences.SetActive(false);
         _statTargets.SetActive(true);
-        DestroyElements(_statSciences);
+        DestroyElements(_statTargets);
 
         var time = Instantiate(prefab, _statTargets.transform);
         var text = time.GetComponent<TextMeshProUGUI>();
-        text.text = $"Вы должны успеть выполнить цели за {CurrentTarget.YearsTime} лет.";
+        text.text = $"Выполнить все цели за {CurrentTarget.YearsTime} круга.";
 
         var businessCount = Instantiate(prefab, _statTargets.transform);
         text = businessCount.GetComponent<TextMeshProUGUI>();
-        text.text = Assets.Count(asset => asset.IsBusiness) > CurrentTarget.BusinessCount
-            ? $"<i>Количество бизнесов не менее {CurrentTarget.BusinessCount}.</i>"
-            : $"Количество бизнесов не менее {CurrentTarget.BusinessCount}.";
+        if (Assets.Count(asset => asset.IsBusiness) >= CurrentTarget.BusinessCount)
+            text.fontStyle = FontStyles.Highlight;
+        text.text = $"Количество бизнесов не менее {CurrentTarget.BusinessCount}.";
 
         var realtyCount = Instantiate(prefab, _statTargets.transform);
         text = realtyCount.GetComponent<TextMeshProUGUI>();
-        text.text = Assets.Count(asset => asset.IsRealty) > CurrentTarget.RealtyCount
-            ? $"<i>Количество недвижимости не менее {CurrentTarget.RealtyCount}.</i>"
-            : $"Количество недвижимости не менее {CurrentTarget.RealtyCount}.";
+        if (Assets.Count(asset => asset.IsRealty) >= CurrentTarget.RealtyCount)
+            text.fontStyle = FontStyles.Highlight;
+        text.text = $"Количество недвижимости не менее {CurrentTarget.RealtyCount}.";
 
         var moodCount = Instantiate(prefab, _statTargets.transform);
         text = moodCount.GetComponent<TextMeshProUGUI>();
-        text.text = Mood > CurrentTarget.MoodStat
-            ? $"<i>Настроение не менее {CurrentTarget.MoodStat}.</i>"
-            : $"Настроение не менее {CurrentTarget.MoodStat}.";
+        if (Mood >= CurrentTarget.MoodStat)
+            text.fontStyle = FontStyles.Highlight;
+        text.text = $"Настроение не менее {CurrentTarget.MoodStat}.";
 
         var cashFlow = Instantiate(prefab, _statTargets.transform);
         text = cashFlow.GetComponent<TextMeshProUGUI>();
-        text.text = CashFlow > CurrentTarget.CashFlow
-            ? $"<i>Денежный поток не менее {CurrentTarget.CashFlow}.</i>"
-            : $"Денежный поток не менее {CurrentTarget.CashFlow}.";
+        if (CashFlow >= CurrentTarget.CashFlow)
+            text.fontStyle = FontStyles.Highlight;
+        text.text = $"Денежный поток не менее {Converter.ConvertToString(CurrentTarget.CashFlow.ToString())}.";
     }
 }
