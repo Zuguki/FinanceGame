@@ -3,7 +3,6 @@ using System.Linq;
 using Assets.Business;
 using Assets.Realty;
 using Main;
-using Science;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +31,13 @@ namespace Assets
 
         private readonly IAsset _defaultBusiness = new DefaultBusinessNotification();
 
-        private readonly IAsset[] _assetInfos = { new Kiosk(), new Home() };
+        private readonly IAsset[] _assetInfos =
+        {
+            new Kiosk(), new OfficeStore(), new Shawarmechnaya(), new ShoeRepair(),
+            new GardenShop(), new FlowerShop(),
+            
+            new Home()
+        };
 
         private readonly IAsset _defaultRealty = new DefaultRealtyNotification();
 
