@@ -75,7 +75,7 @@ namespace Science
         {
             _title.text = "Информация";
             _info.text = $"Вы успешно завершили испытание: '{_passivesForInfo[passiveID].Title}'\n\n" +
-                         $"Теперь вам не придется платить: {_passivesForInfo[passiveID].Price}р.";
+                         $"Теперь вам не придется платить: {_passivesForInfo[passiveID].IncomeValue}р.";
             cellUI.SetActive(true);
         }
 

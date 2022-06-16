@@ -74,14 +74,18 @@ namespace Feast
             else
             {
                 var percent = rnd.Next(1, 5) * 0.01;
-                var feastsCount = _feasts.Count(info => info.IsLiabilities());
+                var feastsCount = _feasts.Count(info => info.IsLiabilities() 
+                                                        && !Player.Liabilities.Any(liab => liab.Title == info.Title()));
                 if (feastsCount == 0)
                 {
                     _feast = new Default();
                     return;
                 }
 
-                _feast = _feasts.Where(info => info.IsLiabilities()).ToList()[rnd.Next(0, feastsCount - 1)];
+                _feast = _feasts.Where(info => info.IsLiabilities() 
+                                               && !Player.Liabilities.Any(liab => liab.Title == info.Title()))
+                    .ToList()[rnd.Next(0, feastsCount - 1)];
+                
                 _price = (int) (percent * Player.Cash);
             }
         }
