@@ -6,7 +6,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject[] waypoints;
 
     public static bool CanMove { get; set; } = true;
-    public static int CurrentWaypoint { get; private set; }
+    public static int CurrentWaypoint { get; set; }
     public static bool InLastWaypoint { get; private set; }
     public static GameObject LastWaypoint { get; private set; }
 

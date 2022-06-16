@@ -93,6 +93,18 @@ public class Player : MonoBehaviour
     private readonly Color _upgradeColor = Color.green;
     private readonly Color _downgradeColor = Color.red;
 
+    public static void SetDefaultValues()
+    {
+        Cash = 1_500_000;
+        Assets = new List<Asset>();
+        Liabilities = new List<Passive>();
+        Educations = new List<Education>();
+        Mood = 4;
+
+        PlayerMove.CurrentWaypoint = 0;
+        NeedsUpdate = true;
+    }
+
     private void Awake()
     {
         _statTitle = playerInfoUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
