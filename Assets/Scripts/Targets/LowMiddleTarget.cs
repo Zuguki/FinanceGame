@@ -6,7 +6,7 @@
         public int BusinessCount => 3;
         public int RealtyCount => 1;
         public int MoodStat => 8;
-        public int TimesFlow => 180_000;
+        public int CashFlow => 180_000;
         public TargetLvl Lvl => TargetLvl.Low;
     }
 }

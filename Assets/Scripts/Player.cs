@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
     public static List<Education> Educations = new();
+    public static ITarget CurrentTarget;
 
     public static Color ActiveButtonColor = Color.white;
     public static Color UnActiveButtonColor = Color.gray;
@@ -60,7 +61,7 @@ public class Player : MonoBehaviour
         _freeTimeText,
         _moodText,
         _yearText;
-    
+
     private static int Year => Month / 12 + 1;
 
     private static ITarget[] _targets =
@@ -69,6 +70,8 @@ public class Player : MonoBehaviour
         new MiddleLowTarget(), new MiddleMiddleTarget(), new MiddleHeightTarget(),
         new HeightLowTarget(), new HeightMiddleTarget(), new HeightHeightTarget()
     };
+
+    private static TargetLvl _targetLvl;
 
     private static TextMeshProUGUI _statTitle;
     private static GameObject _statTexts, _statAssets, _statLiabilities, _statSciences, _statTargets;
@@ -100,6 +103,10 @@ public class Player : MonoBehaviour
         _freeTimeText = _statTexts.transform.GetChild(6).GetChild(0).GetComponent<TextMeshProUGUI>();
         _moodText = _statTexts.transform.GetChild(7).GetChild(0).GetComponent<TextMeshProUGUI>();
         _yearText = _statTexts.transform.GetChild(8).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        _targetLvl = TargetLvl.Low;
+        var targets = _targets.Where(target => target.Lvl == _targetLvl).ToList();
+        CurrentTarget = targets[Random.Range(0, targets.Count)];
     }
 
     private void Update()
@@ -319,5 +326,44 @@ public class Player : MonoBehaviour
         cancel.onClick.RemoveAllListeners();
         success.onClick.AddListener(() => Cancel(eventUI));
         cancel.onClick.AddListener(() => Cancel(eventUI));
+    }
+
+    public static void ShowTargets(GameObject prefab, GameObject eventUI)
+    {
+        _statTitle.text = "Цели";
+        _statAssets.SetActive(false);
+        _statTexts.SetActive(false);
+        _statLiabilities.SetActive(false);
+        _statSciences.SetActive(false);
+        _statTargets.SetActive(true);
+        DestroyElements(_statSciences);
+
+        var time = Instantiate(prefab, _statTargets.transform);
+        var text = time.GetComponent<TextMeshProUGUI>();
+        text.text = $"Вы должны успеть выполнить цели за {CurrentTarget.YearsTime} лет.";
+
+        var businessCount = Instantiate(prefab, _statTargets.transform);
+        text = businessCount.GetComponent<TextMeshProUGUI>();
+        text.text = Assets.Count(asset => asset.IsBusiness) > CurrentTarget.BusinessCount
+            ? $"<i>Количество бизнесов не менее {CurrentTarget.BusinessCount}.</i>"
+            : $"Количество бизнесов не менее {CurrentTarget.BusinessCount}.";
+
+        var realtyCount = Instantiate(prefab, _statTargets.transform);
+        text = realtyCount.GetComponent<TextMeshProUGUI>();
+        text.text = Assets.Count(asset => asset.IsRealty) > CurrentTarget.RealtyCount
+            ? $"<i>Количество недвижимости не менее {CurrentTarget.RealtyCount}.</i>"
+            : $"Количество недвижимости не менее {CurrentTarget.RealtyCount}.";
+
+        var moodCount = Instantiate(prefab, _statTargets.transform);
+        text = moodCount.GetComponent<TextMeshProUGUI>();
+        text.text = Mood > CurrentTarget.MoodStat
+            ? $"<i>Настроение не менее {CurrentTarget.MoodStat}.</i>"
+            : $"Настроение не менее {CurrentTarget.MoodStat}.";
+
+        var cashFlow = Instantiate(prefab, _statTargets.transform);
+        text = cashFlow.GetComponent<TextMeshProUGUI>();
+        text.text = CashFlow > CurrentTarget.CashFlow
+            ? $"<i>Денежный поток не менее {CurrentTarget.CashFlow}.</i>"
+            : $"Денежный поток не менее {CurrentTarget.CashFlow}.";
     }
 }
