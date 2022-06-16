@@ -7,5 +7,6 @@
         public int RealtyCount => 2;
         public int MoodStat => 10;
         public int TimesFlow => 650_000;
+        public TargetLvl Lvl => TargetLvl.Middle;
     }
 }

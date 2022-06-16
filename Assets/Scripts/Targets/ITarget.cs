@@ -7,5 +7,6 @@
         public int RealtyCount { get; }
         public int MoodStat { get; }
         public int TimesFlow { get; }
+        public TargetLvl Lvl { get; }
     }
 }
