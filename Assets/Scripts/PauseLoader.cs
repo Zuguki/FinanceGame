@@ -1,18 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseLoader : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject pauseMenu;
+
+    private static bool _isGamePaused;
+
+    public void LoadStart()
     {
-        
+        Resume();
+        StartManager.LoadStart();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Resume()
     {
-        
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        _isGamePaused = false;
+        CameraMovement.CanMove = true;
+    }
+
+    private void Update()
+    {
+        if (!Input.GetKeyDown(KeyCode.Escape))
+            return;
+
+        if (_isGamePaused)
+            Resume();
+        else
+            Pause();
+    }
+
+    private void Pause()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        _isGamePaused = true;
+        CameraMovement.CanMove = false;
     }
 }
