@@ -5,6 +5,7 @@ using Assets.Business.Height;
 using Assets.Business.Low;
 using Assets.Business.Middle;
 using Assets.Realty;
+using Assets.Realty.Height;
 using Assets.Realty.Low;
 using Assets.Realty.Middle;
 using Main;
@@ -50,6 +51,8 @@ namespace Assets
             
             new StorageRoom(), new Flat(), new CommercialBuilding(), 
             new AgriculturalFacilities(), new TerritoryNearTheReservoir(),
+            
+            new AdministrativeComplex(), new ApartmentBuilding(), new HousingComplex()
         };
 
         private readonly IAsset _defaultRealty = new DefaultRealtyNotification();
