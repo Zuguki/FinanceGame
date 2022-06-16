@@ -13,12 +13,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject playerInfoUI;
 
-    private const int TimePerMonth = 250;
+    private const int TimePerMonth = 50;
 
     public static int Cash = 1_500_000;
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
     public static List<Education> Educations = new();
+
+    public static Color ActiveButtonColor = Color.white;
+    public static Color UnActiveButtonColor = Color.gray;
 
     public static int Incomes => Assets.Sum(asset => (int) (asset.IncomeValue * asset.RatioOfUpgrade));
     public static int Expenses => Liabilities.Sum(liab => liab.IncomeValue);

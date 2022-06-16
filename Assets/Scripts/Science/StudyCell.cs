@@ -79,7 +79,17 @@ namespace Science
 
             RemoveListenersFromButtons();
             SetMethodsToButtons();
-            _successButton.onClick.AddListener(() => Success(asset));
+            
+            var graphic = _successButton.GetComponent<Graphic>();
+            if (Player.Cash < asset.Price || Player.FreeTime < asset.NeedsTime
+                                          || asset == _defaultHeightEducation || asset == _defaultSeminar)
+                graphic.color = Player.UnActiveButtonColor;
+            else
+            {
+                _successButton.onClick.AddListener(() => Success(asset));
+                graphic.color = Player.ActiveButtonColor;
+            }
+            
             _cancelButton.onClick.AddListener(Cancel);
             _backButton.onClick.AddListener(Cancel);
         }
@@ -97,13 +107,6 @@ namespace Science
 
         private void Success(IStudyCell asset)
         {
-            // TODO: Добавить кредиты
-            if (Player.Cash < asset.Price || asset == _defaultHeightEducation || asset == _defaultSeminar)
-            {
-                Cancel();
-                return;
-            }
-
             Player.Cash -= asset.Price;
             Player.Educations.Add(
                 new Education(asset.Title, asset.Description, asset.Price, asset.ExpirationDate,

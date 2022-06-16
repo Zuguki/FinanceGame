@@ -162,7 +162,16 @@ namespace Assets
             _choiceDetails.text = asset.Details;
                 
             _acceptButton.onClick.RemoveAllListeners();
-            _acceptButton.onClick.AddListener(() => ShowChoiceByAsset(asset));
+            
+            var graphic = _acceptButton.GetComponent<Graphic>();
+            if (Player.Cash < asset.Price || Player.FreeTime < asset.NeedsTime
+                                          || asset == _defaultBusiness || asset == _defaultRealty)
+                graphic.color = Player.UnActiveButtonColor;
+            else
+            {
+                _acceptButton.onClick.AddListener(() => ShowChoiceByAsset(asset));
+                graphic.color = Player.ActiveButtonColor;
+            }
         }
 
         private IAsset GetItemByAssets(IReadOnlyList<IAsset> assets, bool isBusiness = true)
@@ -181,13 +190,6 @@ namespace Assets
 
         private void ShowChoiceByAsset(IAsset currentItem)
         {
-            // TODO: Добавить кредиты
-            if (Player.Cash < currentItem.Price || currentItem == _defaultRealty || currentItem == _defaultBusiness)
-            {
-                Cancel();
-                return;
-            }
-            
             if (currentItem.BusinessInfo is Business.Business.None)
                 Player.Assets.Add(new Asset(currentItem.Title, currentItem.Price, currentItem.Income, 0, -1,
                 currentItem.NeedsTime, false, true));
