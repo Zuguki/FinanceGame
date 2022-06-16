@@ -165,6 +165,8 @@ public class Player : MonoBehaviour
 
     private void TargetButton(bool isPlayerWon)
     {
+        targetEventUI.SetActive(false);
+        
         if (!isPlayerWon)
         {
             StartManager.LoadStart();
@@ -172,9 +174,10 @@ public class Player : MonoBehaviour
         }
 
         UpdateTarget();
+        NeedsUpdate = true;
     }
 
-    private void UpdateTarget()
+    private static void UpdateTarget()
     {
         _targetLvl = _targetLvl switch
         {

@@ -537,6 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInfoUI: {fileID: 155288973}
+  targetEventUI: {fileID: 1896960017}
 --- !u!1 &371317619 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3570500843852950253, guid: 7b3fceab73829ec47ae047cce56d2d25, type: 3}
