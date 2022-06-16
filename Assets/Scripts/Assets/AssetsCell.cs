@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Business;
+using Assets.Business.Height;
 using Assets.Business.Low;
 using Assets.Business.Middle;
 using Assets.Realty;
@@ -41,6 +42,8 @@ namespace Assets
             new Barbershop(), new Cafe(), new ClothingStore(), new DryCleaning(),
             new ElectronicsStore(), new SelfServiceCarWash(),
             
+            new University(), new PerfumeBrand(), new FootballClub(), new Factory(), new CarDealership(),
+
             new Home()
         };
 
