@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Main;
 using Science;
+using Targets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,6 +62,13 @@ public class Player : MonoBehaviour
         _yearText;
     
     private static int Year => Month / 12 + 1;
+
+    private static ITarget[] _targets =
+    {
+        new LowLowTarget(), new LowMiddleTarget(), new LowHeightTarget(),
+        new MiddleLowTarget(), new MiddleMiddleTarget(), new MiddleHeightTarget(),
+        new HeightLowTarget(), new HeightMiddleTarget(), new HeightHeightTarget()
+    };
 
     private static TextMeshProUGUI _statTitle;
     private static GameObject _statTexts, _statAssets, _statLiabilities, _statSciences, _statTargets;
