@@ -1,19 +1,19 @@
 ﻿namespace Science.Seminars
 {
-    public class Managment : IStudyCell
+    public class Freelance : IStudyCell
     {
-        public string Title => "Менеджмент";
+        public string Title => "Фриланс";
 
-        public string Description => $"Вы можете приобрести семинар по менеджменту.\n" +
+        public string Description => $"Вы можете приобрести семинар по фрилансу.\n" +
                                      $"Для этого необходимо:\n\n" +
                                      $"Свободное время: {NeedsTime}ч.\n" +
                                      $"Цена: {Price}р.\n" +
                                      $"Доход от бизнесов увеличится на: {RatioOfUpgrade}%\n" +
                                      $"Учеба длится: {ExpirationDate} месяцев.";
 
-        public int Price => 50_000;
-        public int ExpirationDate => 5;
-        public int NeedsTime => 15;
+        public int Price => 70_000;
+        public int ExpirationDate => 6;
+        public int NeedsTime => 25;
         public int RatioOfUpgrade => 10;
         public StudyTrack Track => StudyTrack.Seminar;
     }

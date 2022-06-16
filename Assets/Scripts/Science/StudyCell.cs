@@ -21,7 +21,10 @@ namespace Science
 
         private readonly IStudyCell _defaultHeightEducation = new DefaultHeightEducation();
 
-        private readonly IStudyCell[] _cells = {new Managment()};
+        private readonly IStudyCell[] _cells =
+        {
+            new Managment(), new Marketing(), new DoingBusiness(), new DocumentFlow(), new Freelance(),
+        };
 
         private readonly IStudyCell _defaultSeminar = new DefaultSeminar();
 
