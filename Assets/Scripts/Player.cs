@@ -197,11 +197,10 @@ public class Player : MonoBehaviour
 
         title.text = asset.Title;
         info.text = $"У вас есть имущество под названием: {asset.Title}\n\n" +
-                    $"Вы приобрели имущество за: {Converter.ConvertToString(asset.Price.ToString())}р.\n" +
                     $"Текущая цена имущества: {Converter.ConvertToString(asset.CurrentPrice.ToString())}р.\n" +
                     $"Ежемесячный доход: {Converter.ConvertToString(asset.IncomeValue.ToString())}р.\n" +
                     $"Требуется времени: {Converter.ConvertToString(asset.NeedsTime.ToString())} в месяц\n" +
-                    $"Вы хотите продать имущество за: {Converter.ConvertToString(asset.CurrentPrice.ToString())}р?";
+                    $"Вы действительно хотите продать его?";
 
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
