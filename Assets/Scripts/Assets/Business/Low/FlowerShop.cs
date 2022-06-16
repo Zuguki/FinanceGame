@@ -1,6 +1,6 @@
 ﻿using Main;
 
-namespace Assets.Business
+namespace Assets.Business.Low
 {
     public class FlowerShop : IAsset
     {
