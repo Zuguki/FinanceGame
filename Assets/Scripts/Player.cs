@@ -13,9 +13,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject playerInfoUI;
 
-    private const int TimePerMonth = 100;
+    private const int TimePerMonth = 250;
 
-    public static int Cash = 10000000;
+    public static int Cash = 1_500_000;
     public static List<Passive> Liabilities = new();
     public static List<Asset> Assets = new();
     public static List<Education> Educations = new();
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     private static TextMeshProUGUI _statTitle;
     private static GameObject _statTexts, _statAssets, _statLiabilities, _statSciences, _statTargets;
 
-    private static int _mood = 5;
+    private static int _mood = 4;
 
     private const float EventTime = 2f;
 

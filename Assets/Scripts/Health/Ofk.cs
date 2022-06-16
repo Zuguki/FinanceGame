@@ -2,19 +2,18 @@
 
 namespace Health
 {
-    public class GoodFood : IHealthInfo
+    public class Ofk : IHealthInfo
     {
-        public string Title() => "Правильное Питание";
+        public string Title() => $"ОФК";
 
-        public string Details(int price) => "Вы решили перейти на правильное питание. " +
-                                            "Вы можете оформить подписку, по которой " +
-                                            "вам будут привозить еду.\n" + 
+        public string Details(int price) => $"Вы можете приобрести абонемент на оздоровительную физическую культуру.\n" +
                                             "Для покупки необходимо:\n\n" +
                                             $"Цена: {Converter.ConvertToString(price.ToString())}р.\n" +
                                             $"Действует: {ExpirationDate()} месяцев\n" +
                                             $"Свободного времени: {NeedsTime()}ч.";
 
+
         public int ExpirationDate() => 6;
-        public int NeedsTime() => 8;
+        public int NeedsTime() => 10;
     }
 }

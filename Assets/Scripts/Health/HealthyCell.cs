@@ -18,7 +18,11 @@ namespace Health
         private Button _successButton;
         private Button _cancelButton;
         
-        private readonly IHealthInfo[] _healthInfos = {new Sport(), new GoodFood()};
+        private readonly IHealthInfo[] _healthInfos =
+        {
+            new Athletics(), new Fitness(), new GoodFood(), new Gym(), new Massage(), new Ofk(),
+            new SwimmingPool(), new Volleyball()
+        };
         private IHealthInfo _healthInfo;
         private int _price;
         
@@ -68,7 +72,7 @@ namespace Health
         private void Success()
         {
             Player.Assets.Add(new Asset
-                (_healthInfo.Title(), _price, 0, 1, _healthInfo.Time(), _healthInfo.NeedsTime()));
+                (_healthInfo.Title(), _price, 0, 1, _healthInfo.ExpirationDate(), _healthInfo.NeedsTime()));
             Player.Cash -= _price;
 
             cellUI.SetActive(false);
