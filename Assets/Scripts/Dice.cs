@@ -46,7 +46,7 @@ public class Dice : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        Steps++;
+        Steps = 100;
         IsThrows = true;
         _coroutineAllowed = true;
     }

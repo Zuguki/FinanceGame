@@ -47,6 +47,9 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    public static int Month { get; set; }
+
     private TextMeshProUGUI _cashText,
         _cashFlowText,
         _incomeText,
@@ -54,7 +57,10 @@ public class Player : MonoBehaviour
         _assetsText,
         _liabilitiesText,
         _freeTimeText,
-        _moodText;
+        _moodText,
+        _yearText;
+    
+    private static int Year => Month / 12 + 1;
 
     private static TextMeshProUGUI _statTitle;
     private static GameObject _statTexts, _statAssets, _statLiabilities, _statSciences, _statTargets;
@@ -85,6 +91,7 @@ public class Player : MonoBehaviour
         _liabilitiesText = _statTexts.transform.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>();
         _freeTimeText = _statTexts.transform.GetChild(6).GetChild(0).GetComponent<TextMeshProUGUI>();
         _moodText = _statTexts.transform.GetChild(7).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _yearText = _statTexts.transform.GetChild(8).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -107,6 +114,7 @@ public class Player : MonoBehaviour
         UpdateValue(_liabilitiesText, Liabilities.Sum(pas => pas.Price));
         UpdateValue(_freeTimeText, FreeTime);
         UpdateValue(_moodText, Mood);
+        UpdateValue(_yearText, Year);
 
         NeedsUpdate = false;
     }

@@ -114,6 +114,7 @@ namespace Science
         private static void SetPlayerStats()
         {
             Player.Cash += Player.CashFlow;
+            Player.Month++;
             var assets = new List<Asset>();
             var passives = new List<Passive>();
             var educations = new List<Education>();
