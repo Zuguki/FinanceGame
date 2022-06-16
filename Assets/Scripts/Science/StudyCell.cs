@@ -24,6 +24,8 @@ namespace Science
         private readonly IStudyCell[] _cells =
         {
             new Managment(), new Marketing(), new DoingBusiness(), new DocumentFlow(), new Freelance(),
+            
+            new EconomicEducation(), new HumanitarianEducation(), new TechnicalEducation()
         };
 
         private readonly IStudyCell _defaultSeminar = new DefaultSeminar();
