@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Business;
 using Assets.Business.Low;
+using Assets.Business.Middle;
 using Assets.Realty;
 using Main;
 using TMPro;
@@ -36,6 +37,9 @@ namespace Assets
         {
             new Kiosk(), new OfficeStore(), new Shawarmechnaya(), new ShoeRepair(),
             new GardenShop(), new FlowerShop(),
+            
+            new Barbershop(), new Cafe(), new ClothingStore(), new DryCleaning(),
+            new ElectronicsStore(), new SelfServiceCarWash(),
             
             new Home()
         };
