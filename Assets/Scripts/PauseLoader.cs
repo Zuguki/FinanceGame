@@ -12,6 +12,8 @@ public class PauseLoader : MonoBehaviour
         StartManager.LoadStart();
     }
 
+    public void Quit() => Application.Quit();
+
     public void Resume()
     {
         pauseMenu.SetActive(false);
