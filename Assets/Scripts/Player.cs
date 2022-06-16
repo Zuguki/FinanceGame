@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,14 @@ using Targets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
     public static bool NeedsUpdate = true;
 
     [SerializeField] private GameObject playerInfoUI;
+    [SerializeField] private GameObject targetEventUI;
 
     private const int TimePerMonth = 250;
 
@@ -62,13 +65,17 @@ public class Player : MonoBehaviour
         _moodText,
         _yearText;
 
+    private TextMeshProUGUI _targetTitleUI, _targetDescriptionUI;
+    private Button _targetButtonUI;
+
     private static int Year => Month / 12 + 1;
 
     private static ITarget[] _targets =
     {
         new LowLowTarget(), new LowMiddleTarget(), new LowHeightTarget(),
         new MiddleLowTarget(), new MiddleMiddleTarget(), new MiddleHeightTarget(),
-        new HeightLowTarget(), new HeightMiddleTarget(), new HeightHeightTarget()
+        new HeightLowTarget(), new HeightMiddleTarget(), new HeightHeightTarget(),
+        new VeryHeightTarget()
     };
 
     private static TargetLvl _targetLvl;
@@ -104,6 +111,10 @@ public class Player : MonoBehaviour
         _moodText = _statTexts.transform.GetChild(7).GetChild(0).GetComponent<TextMeshProUGUI>();
         _yearText = _statTexts.transform.GetChild(8).GetChild(0).GetComponent<TextMeshProUGUI>();
 
+        _targetTitleUI = targetEventUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        _targetDescriptionUI = targetEventUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        _targetButtonUI = targetEventUI.transform.GetChild(2).GetComponent<Button>();
+
         _targetLvl = TargetLvl.Low;
         var targets = _targets.Where(target => target.Lvl == _targetLvl).ToList();
         CurrentTarget = targets[Random.Range(0, targets.Count)];
@@ -113,6 +124,69 @@ public class Player : MonoBehaviour
     {
         if (NeedsUpdate)
             UpdateUIValues();
+
+        CheckTargets();
+    }
+
+    private void CheckTargets()
+    {
+        if (Year < CurrentTarget.YearsTime)
+            return;
+
+        if (Assets.Count(asset => asset.IsBusiness) >= CurrentTarget.BusinessCount
+            && Assets.Count(asset => asset.IsRealty) >= CurrentTarget.RealtyCount
+            && Mood >= CurrentTarget.MoodStat
+            && CashFlow >= CurrentTarget.CashFlow)
+            ShowInfo(true);
+        else
+            ShowInfo(false);
+    }
+
+    private void ShowInfo(bool isPlayerWon)
+    {
+        targetEventUI.SetActive(true);
+        _targetButtonUI.onClick.RemoveAllListeners();
+        
+        if (isPlayerWon)
+        {
+            _targetTitleUI.text = "Поздравляю";
+            _targetDescriptionUI.text = "Вы усешно завершили текущие цели, теперь вы можете продолжить и пройти более" +
+                                        " сложные цели.";
+        }
+        else
+        {
+            _targetTitleUI.text = "Очень жаль";
+            _targetDescriptionUI.text = "Вы не смогли выполнить поставленные цели, вам стоит выйти в главное меню " +
+                                        "и попробовать с начал.";
+        }
+        
+        _targetButtonUI.onClick.AddListener(() => TargetButton(isPlayerWon));
+    }
+
+    private void TargetButton(bool isPlayerWon)
+    {
+        if (!isPlayerWon)
+        {
+            StartManager.LoadStart();
+            return;
+        }
+
+        UpdateTarget();
+    }
+
+    private void UpdateTarget()
+    {
+        _targetLvl = _targetLvl switch
+        {
+            TargetLvl.Low => TargetLvl.Middle,
+            TargetLvl.Middle => TargetLvl.Height,
+            TargetLvl.Height => TargetLvl.VeryHeight,
+            TargetLvl.VeryHeight => TargetLvl.Low,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        var targets = _targets.Where(target => target.Lvl == _targetLvl).ToList();
+        CurrentTarget = targets[Random.Range(0, targets.Count)];
     }
 
     private void UpdateUIValues()
@@ -328,7 +402,7 @@ public class Player : MonoBehaviour
         cancel.onClick.AddListener(() => Cancel(eventUI));
     }
 
-    public static void ShowTargets(GameObject prefab, GameObject eventUI)
+    public static void ShowTargets(GameObject prefab)
     {
         _statTitle.text = "Цели";
         _statAssets.SetActive(false);
