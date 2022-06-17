@@ -318,7 +318,7 @@ public class Player : MonoBehaviour
         {
             _targetTitleUI.text = "Очень жаль";
             _targetDescriptionUI.text = "Вы не смогли выполнить поставленные цели, вам стоит выйти в главное меню " +
-                                        "и попробовать с начал.";
+                                        "и попробовать сначал.";
         }
 
         _targetButtonUI.onClick.AddListener(() => TargetButton(isPlayerWon));
