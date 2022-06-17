@@ -46,7 +46,7 @@ namespace Health
             _successButton.onClick.RemoveAllListeners();
             
             var graphic = _successButton.GetComponent<Graphic>();
-            if (Player.Cash < _price)
+            if (Player.Cash < _price || Player.FreeTime < _healthInfo.NeedsTime())
                 graphic.color = Player.UnActiveButtonColor;
             else
             {
