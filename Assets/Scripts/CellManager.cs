@@ -1,11 +1,12 @@
 using Main;
+using Science;
 using UnityEngine;
 
 public class CellManager : MonoBehaviour
 {
     private void Update()
     {
-        if (PlayerMove.InLastWaypoint)
+        if (PlayerMove.InLastWaypoint && !PlayerMove.LastWaypoint.TryGetComponent(out InfoCell cell))
             ShowCellDetails();
     }
 

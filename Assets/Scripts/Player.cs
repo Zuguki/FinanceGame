@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
     public static void SetDefaultValues()
     {
         Cash = 1_500_000;
+        Month = 0;
         Assets = new List<Asset>();
         Liabilities = new List<Passive>();
         Educations = new List<Education>();
@@ -165,6 +166,8 @@ public class Player : MonoBehaviour
     {
         targetEventUI.SetActive(true);
         _targetButtonUI.onClick.RemoveAllListeners();
+        CameraMovement.CanMove = false;
+        PlayerMove.CanMove = false;
         
         if (isPlayerWon)
         {
@@ -185,6 +188,8 @@ public class Player : MonoBehaviour
     private void TargetButton(bool isPlayerWon)
     {
         targetEventUI.SetActive(false);
+        CameraMovement.CanMove = true;
+        PlayerMove.CanMove = true;
         
         if (!isPlayerWon)
         {
@@ -193,7 +198,6 @@ public class Player : MonoBehaviour
         }
 
         UpdateTarget();
-        NeedsUpdate = true;
     }
 
     private static void UpdateTarget()
