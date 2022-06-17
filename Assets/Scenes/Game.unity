@@ -680,7 +680,7 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   zoomStep: 1
   minCamSize: 5
-  maxCamSize: 16
+  maxCamSize: 14
   mapRenderer: {fileID: 1299214228}
 --- !u!1 &532762836 stripped
 GameObject:
