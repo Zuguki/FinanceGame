@@ -1,4 +1,6 @@
-﻿namespace Science.Seminars
+﻿using Main;
+
+namespace Science.Seminars
 {
     public class Managment : IStudyCell
     {
@@ -7,7 +9,7 @@
         public string Description => $"Вы можете приобрести семинар по менеджменту.\n" +
                                      $"Для этого необходимо:\n\n" +
                                      $"Свободное время: {NeedsTime}ч.\n" +
-                                     $"Цена: {Price}р.\n" +
+                                     $"Цена: {Converter.ConvertToString(Price.ToString())}р.\n" +
                                      $"Доход от бизнесов увеличится на: {RatioOfUpgrade}%\n" +
                                      $"Учеба длится: {ExpirationDate} месяцев.";
 
