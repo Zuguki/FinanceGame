@@ -38,7 +38,7 @@ namespace Science
             SetDoneEducations();
             TryUpgradeMood();
             ChangeAssetPrice();
-            
+
             _assetID = 0;
             _passiveID = 0;
             _educationID = 0;

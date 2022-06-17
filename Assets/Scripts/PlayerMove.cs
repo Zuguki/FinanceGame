@@ -36,7 +36,7 @@ public class PlayerMove : MonoBehaviour
         {
             InLastWaypoint = false;
             CameraMovement.MoveToPlayer(gameObject, cam, mapSprite);
-            
+
             transform.position = Vector3.MoveTowards(transform.position,
                 waypoints[CurrentWaypoint].transform.position,
                 moveSpeed * Time.deltaTime);
@@ -50,10 +50,10 @@ public class PlayerMove : MonoBehaviour
                 CameraMovement.CanMove = false;
                 cell.ShowDetails();
             }
-                
+
             gameObject.transform.rotation = SetRotation();
             CurrentWaypoint = (CurrentWaypoint + 1) % waypoints.Length;
-            
+
             if (_isStartPosition)
                 _isStartPosition = false;
             else
@@ -64,7 +64,7 @@ public class PlayerMove : MonoBehaviour
             InLastWaypoint = _passedSteps > 0;
             if (InLastWaypoint)
                 LastWaypoint = waypoints[CurrentWaypoint - 1 >= 0 ? CurrentWaypoint - 1 : waypoints.Length - 1];
-            
+
             _passedSteps = 0;
             Dice.IsThrows = false;
         }

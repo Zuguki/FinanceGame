@@ -14,12 +14,12 @@ namespace Main
             {
                 sb.Append(value[index]);
                 counter++;
-                
+
                 if (counter < 3)
                     continue;
 
                 counter = 0;
-                
+
                 if (index != 0 && value[index - 1] != '-')
                     sb.Append('.');
             }
@@ -35,5 +35,4 @@ namespace Main
             return int.TryParse(clearString, out result);
         }
     }
-
 }

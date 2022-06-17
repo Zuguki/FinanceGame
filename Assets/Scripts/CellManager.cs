@@ -6,7 +6,7 @@ public class CellManager : MonoBehaviour
 {
     private void Update()
     {
-        if (PlayerMove.InLastWaypoint && !PlayerMove.LastWaypoint.TryGetComponent(out InfoCell cell))
+        if (PlayerMove.InLastWaypoint && !PlayerMove.LastWaypoint.TryGetComponent(out InfoCell _))
             ShowCellDetails();
     }
 

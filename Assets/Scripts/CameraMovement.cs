@@ -3,25 +3,24 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public static bool CanMove = true;
-    
+
     [SerializeField] private Camera cam;
 
-    [SerializeField]
-    private float zoomStep, minCamSize, maxCamSize;
+    [SerializeField] private float zoomStep, minCamSize, maxCamSize;
 
     [SerializeField] private SpriteRenderer mapRenderer;
 
     private Vector3 _cameraDragOrigin;
 
     private const float MapDelta = 2f;
-    
+
     public static void MoveToPlayer(GameObject player, Camera camera, SpriteRenderer mapRenderer)
     {
         var playerPosition = player.transform.position;
         var cameraPosition = camera.transform.position;
         var difference = playerPosition - cameraPosition;
-        
-        var resultPoint = 
+
+        var resultPoint =
             new Vector3(cameraPosition.x + difference.x, cameraPosition.y + difference.y, cameraPosition.z);
         cameraPosition = ClampCamera(resultPoint, camera, mapRenderer);
         camera.transform.position = cameraPosition;
@@ -31,7 +30,7 @@ public class CameraMovement : MonoBehaviour
     {
         if (!CanMove)
             return;
-        
+
         PanCamera();
         Zoom();
     }
@@ -69,7 +68,7 @@ public class CameraMovement : MonoBehaviour
     {
         var mapPosition = mapRenderer.transform.position;
         var bounds = mapRenderer.bounds;
-        
+
         var orthographicSize = camera.orthographicSize;
         var cameraWidth = orthographicSize * camera.aspect;
 
@@ -87,7 +86,7 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(newXPosition, newYPosition, targetPosition.z);
     }
 
-    private static (float, float, float, float) GetBounds(Vector3 mapPosition, Bounds bounds) => 
+    private static (float, float, float, float) GetBounds(Vector3 mapPosition, Bounds bounds) =>
         (mapPosition.x - bounds.size.x / MapDelta, mapPosition.x + bounds.size.x / MapDelta,
             mapPosition.y - bounds.size.y / MapDelta, mapPosition.y + bounds.size.y / MapDelta);
 
@@ -102,6 +101,4 @@ public class CameraMovement : MonoBehaviour
         var difference = _cameraDragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
         cam.transform.position = ClampCamera(cam.transform.position + difference, cam, mapRenderer);
     }
-
-
 }

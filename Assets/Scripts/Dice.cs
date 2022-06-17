@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Dice : MonoBehaviour
-{ 
+{
     public static bool IsThrows;
     public static int Steps { get; private set; }
 
@@ -24,7 +24,7 @@ public class Dice : MonoBehaviour
         _diceSides = Resources.LoadAll<Sprite>("DiceSides/");
         _renderer.sprite = _diceSides[0];
         _button = GetComponent<Button>();
-        
+
         _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(Roll);
     }
