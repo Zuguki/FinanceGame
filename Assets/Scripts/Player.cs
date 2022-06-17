@@ -78,6 +78,8 @@ public class Player : MonoBehaviour
         new VeryHeightTarget()
     };
 
+    private Camera _camera;
+    
     private static TargetLvl _targetLvl;
 
     private static TextMeshProUGUI _statTitle;
@@ -103,11 +105,16 @@ public class Player : MonoBehaviour
         Mood = 4;
 
         PlayerMove.CurrentWaypoint = 0;
+        CameraMovement.CanMove = true;
+        PlayerMove.CanMove = true;
+        Dice.IsThrows = false;
         NeedsUpdate = true;
     }
 
     private void Awake()
     {
+        _camera = Camera.main;
+        
         _statTitle = playerInfoUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
         _statTexts = playerInfoUI.transform.GetChild(1).gameObject;
@@ -142,10 +149,26 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        CheckTargets();
+        CheckCamera();
+        
         if (NeedsUpdate)
             UpdateUIValues();
+    }
+    
+    private void CheckCamera()
+    {
+        if (_camera is null)
+            return;
+        
+        var position = playerInfoUI.transform.position;
+        var xDistance = (_camera.ScreenToWorldPoint(Input.mousePosition) - position).x;
+        var yDistance = (_camera.ScreenToWorldPoint(Input.mousePosition) - position).y;
 
-        CheckTargets();
+        if (xDistance is > -2.5f and < 2.5f && yDistance is > -3f and < 3f)
+            CameraMovement.CanMove = false;
+        else
+            CameraMovement.CanMove = true;
     }
 
     private void CheckTargets()
@@ -306,6 +329,8 @@ public class Player : MonoBehaviour
             btn.onClick.AddListener(() => ShowByAsset(prefab, asset, eventUI));
         }
     }
+
+
 
     private static void DestroyElements(GameObject item)
     {
