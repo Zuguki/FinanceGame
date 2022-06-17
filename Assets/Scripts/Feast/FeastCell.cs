@@ -69,7 +69,7 @@ namespace Feast
 
             if (Player.Mood > 5)
             {
-                var percent = rnd.Next(1, 10) * 0.01;
+                var percent = rnd.Next(5, 15) * 0.01;
                 var feastsCount = _feasts.Count(info => info.IsLiabilities() is false);
                 if (feastsCount == 0)
                 {
@@ -78,14 +78,14 @@ namespace Feast
                 }
 
                 _feast = _feasts.Where(info => info.IsLiabilities() is false).ToList()[rnd.Next(0, feastsCount - 1)];
-                if (Player.Cash < 100_000)
+                if (Player.Cash < 100_000 || (int) (percent * Player.Cash) < 50_000)
                     _price = 100_000;
                 else
                     _price = (int) (percent * Player.Cash);
             }
             else
             {
-                var percent = rnd.Next(1, 5) * 0.01;
+                var percent = rnd.Next(5, 10) * 0.01;
                 var feastsCount = _feasts.Count(info => info.IsLiabilities() 
                                                         && !Player.Liabilities.Any(liab => liab.Title == info.Title()));
                 if (feastsCount == 0)
@@ -98,7 +98,7 @@ namespace Feast
                                                && !Player.Liabilities.Any(liab => liab.Title == info.Title()))
                     .ToList()[rnd.Next(0, feastsCount - 1)];
                 
-                if (Player.Cash < 100_000)
+                if (Player.Cash < 100_000 || (int) (percent * Player.Cash) < 50_000)
                     _price = 100_000;
                 else
                     _price = (int) (percent * Player.Cash);

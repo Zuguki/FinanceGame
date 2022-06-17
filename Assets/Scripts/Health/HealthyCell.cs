@@ -64,14 +64,14 @@ namespace Health
         {
             var rnd = new Random();
 
-            var percent = rnd.Next(5, 10) * 0.01;
+            var percent = rnd.Next(5, 15) * 0.01;
             var goodInfo = _healthInfos
                 .Where(info => Player.Assets.All(p => p.Title != info.Title())).ToList();
 
             if (goodInfo.Count > 0)
             {
                 _healthInfo = goodInfo[rnd.Next(0, goodInfo.Count - 1)];
-                if (Player.Cash < 100_000)
+                if (Player.Cash < 100_000 || (int) (percent * Player.Cash) < 50_000)
                     _price = 100_000;
                 else
                     _price = (int) (percent * Player.Cash);
