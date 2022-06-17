@@ -13,7 +13,7 @@ namespace Science.HeightEducation
                                      $"Доход от бизнесов увеличится на: {RatioOfUpgrade}%\n" +
                                      $"Учеба длится: {ExpirationDate} месяцев.";
 
-        public int Price => 360_000;
+        public int Price => 600_000;
         public int ExpirationDate => 36;
         public int NeedsTime => 60;
         public int RatioOfUpgrade => 50;
