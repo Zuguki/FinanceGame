@@ -350,7 +350,7 @@ public class Player : MonoBehaviour
         info.text = $"У вас есть имущество под названием: {asset.Title}\n\n" +
                     $"Текущая цена имущества: {Converter.ConvertToString(asset.CurrentPrice.ToString())}р.\n" +
                     $"Ежемесячный доход: {Converter.ConvertToString(asset.IncomeValue.ToString())}р.\n" +
-                    $"Требуется времени: {Converter.ConvertToString(asset.NeedsTime.ToString())} в месяц\n" +
+                    $"Требуется времени: {Converter.ConvertToString(asset.NeedsTime.ToString())}ч. в месяц\n" +
                     $"Вы действительно хотите продать его?";
 
         success.onClick.RemoveAllListeners();
@@ -404,7 +404,7 @@ public class Player : MonoBehaviour
 
         title.text = liability.Title;
         info.text = $"У вас есть пассив под названием: {liability.Title}\n\n" +
-                    $"Пассив обходится вам в: {Converter.ConvertToString(liability.IncomeValue.ToString())}";
+                    $"Пассив обходится вам в: {Converter.ConvertToString(liability.IncomeValue.ToString())}р.";
 
         success.onClick.RemoveAllListeners();
         cancel.onClick.RemoveAllListeners();
